@@ -1,0 +1,79 @@
+import * as React from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { AppColors } from './colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { AppHeaderButton } from './components/header-button';
+
+export interface CoordenadorTemplateProps {
+    title: string
+    children: any
+}
+
+export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps) {
+
+    // ==============================================================================
+    const handleSair = async () => {
+        router.replace('/login')
+    }
+
+    // ===============================================================================
+    return (
+    <View style={{flex: 1}}>
+      <View style={styles.container}>
+            {/* ============= HEADER ============= */}
+            <View style={styles.header} >
+                {/* BTN SAIR */}
+                <TouchableOpacity onPress={handleSair}>
+                    <View style={styles.btnSairContainer}>
+                        <MaterialIcons name="exit-to-app" color="white" size={16} />
+                        <Text style={{color:'white', fontSize: 12, fontWeight: 'bold' }}>Sair</Text>
+                    </View>
+                </TouchableOpacity>
+
+                {/* HEADER */}
+                <Text style={styles.headerTitle}>{title}</Text>
+            </View>
+
+
+            {/* ============= MENU ============= */}
+            <View>
+                <AppHeaderButton icon="person" title="pacientes"/>
+                <AppHeaderButton icon="person" title="Sessões"/>
+                <AppHeaderButton icon="person" title="Relatórios"/>
+               
+            </View>
+        </View>
+        
+        {/* ============= MAIN ============== */}
+        <ScrollView>
+            {children}
+        </ScrollView>
+      </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: AppColors.primary,
+        paddingTop: 10,
+        paddingHorizontal: 10
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    headerTitle: {
+        color: 'white', 
+        textAlign: 'center', 
+        flex: 1,
+        fontWeight:'bold',
+        fontSize: 16,
+        margin: 5
+    },
+    btnSairContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    }
+
+});
