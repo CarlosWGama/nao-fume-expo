@@ -37,11 +37,10 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
 
 
             {/* ============= MENU ============= */}
-            <View>
-                <AppHeaderButton icon="person" title="pacientes"/>
-                <AppHeaderButton icon="person" title="Sessões"/>
-                <AppHeaderButton icon="person" title="Relatórios"/>
-               
+            <View style={{flexDirection: 'row', padding: 5, justifyContent: 'center'}}>
+                <AppHeaderButton icon="person" title="Pacientes" page="/coordenador/pacientes" selecionado={title == 'Pacientes'}/>
+                <AppHeaderButton icon="newspaper" title="Sessões"  page="/coordenador/sessoes" selecionado={title == 'Sessões'}/>
+                <AppHeaderButton icon="ribbon" title="Relatórios"  page="/coordenador/relatorios" selecionado={title == 'Relatórios'}/>
             </View>
         </View>
         

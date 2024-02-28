@@ -1,19 +1,36 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 
 export interface AppHeaderButtonProps {
     icon: string,
     title: string,
-    page: string
+    page: string,
+    selecionado?: boolean
 }
 
-export function AppHeaderButton ({icon, title, page}: AppHeaderButtonProps) {
+export function AppHeaderButton ({icon, title, page, selecionado}: AppHeaderButtonProps) {
+
+    // =======================================================
+    const changePage = async () => {
+      router.replace(page)
+    }
+    // =======================================================
     return (
-      <View>
-            <Ionicons name={icon} color='white' />
-            <Text>{title}</Text>
-      </View>
+      <TouchableOpacity onPress={changePage}>
+        <View style={styles.container}>
+              <Ionicons name={icon + (selecionado ? '' : '-outline')} color='white' />
+              <Text style={{color: 'white', fontWeight: (selecionado ? 'bold' : '400')}}>{title}</Text>
+        </View>
+      </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginHorizontal: 20
+  }
+});
