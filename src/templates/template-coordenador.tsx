@@ -45,9 +45,7 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
         </View>
         
         {/* ============= MAIN ============== */}
-        <ScrollView>
-            {children}
-        </ScrollView>
+        {children}
       </View>
     );
 }
