@@ -4,6 +4,7 @@ import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { AppHeaderButton } from './components/header-button';
+import { CoordenadorProvider } from '../contexts/coordenador-context';
 
 export interface CoordenadorTemplateProps {
     title: string
@@ -19,41 +20,43 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
 
     // ===============================================================================
     return (
-    <View style={{flex: 1}}>
-      <View style={styles.container}>
-            {/* ============= HEADER ============= */}
-            <View style={styles.header} >
-                {/* BTN SAIR */}
-                <TouchableOpacity onPress={handleSair}>
-                    <View style={styles.btnSairContainer}>
-                        <MaterialIcons name="exit-to-app" color="white" size={16} />
-                        <Text style={{color:'white', fontSize: 12, fontWeight: 'bold' }}>Sair</Text>
-                    </View>
-                </TouchableOpacity>
-
-                {/* HEADER */}
-                <Text style={styles.headerTitle}>{title}</Text>
-            </View>
-
-
-            {/* ============= MENU ============= */}
-            <View style={{flexDirection: 'row', padding: 5, justifyContent: 'center'}}>
-                <AppHeaderButton icon="person" title="Pacientes" page="/coordenador/pacientes" selecionado={title == 'Pacientes'}/>
-                <AppHeaderButton icon="newspaper" title="Sessões"  page="/coordenador/sessoes" selecionado={title == 'Sessões'}/>
-                <AppHeaderButton icon="ribbon" title="Relatórios"  page="/coordenador/relatorios" selecionado={title == 'Relatórios'}/>
-            </View>
-        </View>
         
-        {/* ============= MAIN ============== */}
-        {children}
-      </View>
+        <View style={{flex: 1}}>
+            <View style={styles.container}>
+                {/* ============= HEADER ============= */}
+                <View style={styles.header} >
+                    {/* BTN SAIR */}
+                    <TouchableOpacity onPress={handleSair}>
+                        <View style={styles.btnSairContainer}>
+                            <MaterialIcons name="exit-to-app" color="white" size={16} />
+                            <Text style={{color:'white', fontSize: 12, fontWeight: 'bold' }}>Sair</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    {/* HEADER */}
+                    <Text style={styles.headerTitle}>{title}</Text>
+                </View>
+
+
+                {/* ============= MENU ============= */}
+                <View style={{flexDirection: 'row', padding: 5, justifyContent: 'center'}}>
+                    <AppHeaderButton icon="person" title="Pacientes" page="/coordenador/pacientes" selecionado={title == 'Pacientes'}/>
+                    <AppHeaderButton icon="newspaper" title="Sessões"  page="/coordenador/sessoes" selecionado={title == 'Sessões'}/>
+                    <AppHeaderButton icon="ribbon" title="Relatórios"  page="/coordenador/relatorios" selecionado={title == 'Relatórios'}/>
+                </View>
+            </View>
+            
+            {/* ============= MAIN ============== */}
+            {children}
+        </View>
+    
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: AppColors.primary,
-        paddingTop: 10,
+        paddingTop: 25,
         paddingHorizontal: 10
     },
     header: {
