@@ -4,5 +4,5 @@ export const AppColors = {
     danger: '#e63e3e',
     light: '#f4f5f8',
     warning: '#ffce00',
-
+    lightgrey: '#dedede',
 }

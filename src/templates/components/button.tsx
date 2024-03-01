@@ -11,12 +11,13 @@ export interface AppButtonProps {
     disabled?: boolean
 }
 
-export function AppButton ({color, transparent, title, onPress, textColor, disabled}: AppButtonProps) {
+function AppButton ({color, transparent, title, onPress, textColor, disabled}: AppButtonProps) {
     return (
         <TouchableOpacity onPress={disabled ? () => {} : onPress}>
             <View style={[styles.container, 
                 {
-                    backgroundColor: (disabled ? 'lightgrey' : (transparent ? 'transparent' : color)), 
+                    backgroundColor: (transparent ? 'transparent' : color),
+                    opacity: ( disabled? 0.4 : 1),
                     borderColor: color}
                 ]}>
                 <Text style={{color:textColor}}>{title}</Text>

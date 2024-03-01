@@ -7,9 +7,10 @@ export class Paciente {
 
      // Lista a posição do paciente em relação aos demais
     public rank: number = 0;
+    public senha: string = '';
 
     constructor(public uid?: string, public nome?: string, public codigo?: number,
-                public mediaCigarros: number = 0, public precoCigarro: number = 0.1,
+                public mediaCigarros: number = 0, public precoCigarro: number = 0.10,
                 public coordenadorUID?: string, public ultimoDiaRespondido?: string,
                 public avatar: number = 1,
                 public cigarrosEvitados: number = 0, public diasSeguidosSemFumar: number = 0,

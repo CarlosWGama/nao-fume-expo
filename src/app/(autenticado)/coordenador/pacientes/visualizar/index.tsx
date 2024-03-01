@@ -7,18 +7,19 @@ import { AppBackButton, AppLabel } from '../../../../../templates/components';
 import { AppColors } from '../../../../../templates/colors';
 import { Questionario } from '../../../../../models/questionario';
 import { dataFormat } from '../../../../../helpers/general';
+import { router } from 'expo-router';
 
 export interface PacienteVisualizarProps {
 }
 
-export default function PacienteVisualizar (props: PacienteVisualizarProps) {
+export default function PacienteVisualizarScreen (props: PacienteVisualizarProps) {
 
 
     const { paciente } = useCoordenadorContext();
     const [ questionariosDiarios, setQuestionariosDiarios ] = React.useState<Questionario[]> ();
     // ================================================================
     const handleEditar = async () => {
-
+        router.push('/coordenador/pacientes/editar')
     }
     // =======
     const buscarQuestionariosDiarios = async () => {

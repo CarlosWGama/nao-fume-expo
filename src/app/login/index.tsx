@@ -14,7 +14,7 @@ export default function LoginScreen (props) {
     // =========================================================================
     const handleLogin = async ({codigo, senha}) => {
       setErro(null)
-      await new Promise(resolve => setTimeout(() => resolve(), 2000))
+      await new Promise(resolve => setTimeout(() => resolve(), 300))
 
       //Realiza o login de teste
       if (codigo == 1)

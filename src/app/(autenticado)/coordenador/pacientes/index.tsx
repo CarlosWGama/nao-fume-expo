@@ -5,6 +5,7 @@ import { Paciente } from '../../../../models/paciente';
 import { CardPaciente } from './components';
 import { AppFabButton } from '../../../../templates/components/fab-button';
 import { router } from 'expo-router';
+import { useCoordenadorContext } from '../../../../contexts/coordenador-context';
 
 export interface PacientesProps {
 }
@@ -13,6 +14,7 @@ export default function Pacientes (props: PacientesProps) {
 
 
     const [ pacientes, setPacientes ] = useState<Paciente[]>([]);
+    const { setPaciente } = useCoordenadorContext();
     // ==========================================================================
     const buscarPacientes = async () => {
       setPacientes([
@@ -20,6 +22,12 @@ export default function Pacientes (props: PacientesProps) {
         new Paciente('12312', 'Maria', 2, 10, 0.1, '111', '2024-02-20', 2, 20, 4, 2, 2, 100.00, 150.00, false, 2, false, []),
         new Paciente('12312', 'Jose', 3, 10, 0.1, '111', '2024-02-20', 3, 20, 4, 2, 2, 100.00, 150.00, false, 2, false, []),
       ]);
+    }
+    // ========
+    const handleNovoPaciente = async () => {
+      setPaciente(null);
+      router.push('/coordenador/pacientes/editar');
+
     }
     // =========
     useEffect(() => {
@@ -36,7 +44,7 @@ export default function Pacientes (props: PacientesProps) {
             
             />
 
-          <AppFabButton onPress={() => console.log('AAAA')} position='bottom-right' />
+          <AppFabButton onPress={handleNovoPaciente} position='bottom-right' />
         </View>
       </CoordenadorTemplate>
     );
