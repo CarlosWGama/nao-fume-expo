@@ -37,6 +37,14 @@ export class Sessao {
     }
 }
 
+//======
+export function getTotalPresentes(dadosPacientes: DadosPacientesSessao[]) {
+    return dadosPacientes.reduce((acumulador, p) => {
+        if (p.presente) acumulador++;
+        return acumulador;
+    }, 0);
+}
+
 /**
  * 
  */
