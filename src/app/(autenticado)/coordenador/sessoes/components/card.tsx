@@ -8,17 +8,11 @@ import { CardButton } from '.';
 export interface CardSessaoProps {
     sessao: Sessao;
     posicao: number;
+    onExcluir(): void;
+    onEditar(): void;
 }
 // =====
-function CardSessao ({sessao, posicao}: CardSessaoProps) {
-
-    const handleEditar = async () => {
-
-    }
-    // =====
-    const handleExcluir = async () => {
-
-    }
+function CardSessao ({sessao, posicao, onEditar, onExcluir}: CardSessaoProps) {
 
     // ========================================================
     return (
@@ -46,8 +40,8 @@ function CardSessao ({sessao, posicao}: CardSessaoProps) {
 
         {/* BOTÕES */}
         <View style={styles.row}>
-            <CardButton title='Editar' icon='newspaper-outline' onPress={handleEditar}/>
-            <CardButton  title='Excluir' icon='trash-outline'  onPress={handleExcluir}/>
+            <CardButton title='Editar' icon='newspaper-outline' onPress={onEditar}/>
+            <CardButton  title='Excluir' icon='trash-outline'  onPress={onExcluir}/>
         </View>
       </LinearGradient>
     );

@@ -1,0 +1,52 @@
+import * as React from 'react';
+import { View } from 'react-native';
+import { AppButton, AppItemForm } from '../../../../../templates/components';
+import { useCoordenadorContext } from '../../../../../contexts/coordenador-context';
+import { AppColors } from '../../../../../templates/colors';
+import { Formik } from 'formik';
+import { Sessao } from '../../../../../models/sessao';
+import MaskInput, { Masks } from 'react-native-mask-input';
+import { dataFormat } from '../../../../../helpers/general';
+import Toast from 'react-native-root-toast';
+import * as Yup from 'yup';
+
+
+export interface SessaoEditarScreenProps {
+}
+
+export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
+
+    const { sessao } = useCoordenadorContext();
+    // ==============================================================
+    const handleSalvar = async () => {
+      Toast.show('Sessao salvo com sucesso!')
+    }
+    // ==============================================================
+    return (
+      <View style={{flex:1}}>
+        <Formik
+          initialValues={sessao ? sessao : new Sessao()}
+          validationSchema={Yup.object({ data: Yup.string().length(10).required() })}
+          onSubmit={handleSalvar} >
+          {({handleSubmit, values, setFieldValue, errors, isValid, touched, handleBlur}) => (
+            <>  
+              {/* PROXIMO QUESTIONARIO DIARIO */}
+              <AppItemForm label="Data da sessão" error={errors.data && touched.data}>
+                <MaskInput style={{flex:1, marginLeft: 10}} 
+                  value={dataFormat(""+values.data)}  
+                  onChangeText={(text) => {
+                    setFieldValue('data',dataFormat(text, 'br-to-database'))
+                  }} 
+                  onBlur={handleBlur('data')}
+                  placeholder='Dia/Mês/Ano' 
+                  keyboardType='decimal-pad'
+                  mask={Masks.DATE_DDMMYYYY	}/>
+              </AppItemForm>   
+              
+              <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid}/>
+            </>
+          )}
+        </Formik>
+      </View>
+    );
+}

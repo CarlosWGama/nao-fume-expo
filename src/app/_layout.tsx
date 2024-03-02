@@ -14,6 +14,13 @@ export default function LayoutCoordenador () {
                         headerTintColor: 'white',
                         title: 'Paciente'
                     }} />
+
+                    <Stack.Screen name="(autenticado)/coordenador/sessoes/editar/index" options={{
+                        headerShown: true,
+                        headerStyle: {backgroundColor: AppColors.primary},
+                        headerTintColor: 'white',
+                        title: 'Sessão'
+                    }} />
                 </Stack>
             </CoordenadorProvider>
         </RootSiblingParent>
