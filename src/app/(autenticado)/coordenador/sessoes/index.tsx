@@ -37,6 +37,11 @@ export default function Sessoes (props: SessoesProps) {
       Toast.show('Tarefa excluida com sucesso!')
     }
     // ========
+    const handleAbrir = async (sessao: Sessao) => {
+      setSessao(sessao)
+      router.push('/coordenador/sessoes/visualizar/geral')
+    }
+    // ========
     useEffect(() => {
         buscarSessoes();
     }, []);
@@ -46,7 +51,7 @@ export default function Sessoes (props: SessoesProps) {
         <View style={{flex: 1}}>
           <FlatList
             data={sessoes}
-            renderItem={({item, index}) => (<CardSessao sessao={item} posicao={index+1} onEditar={() => handleEditar(item)} onExcluir={() => handleExcluir(item)}/>)}
+            renderItem={({item, index}) => (<CardSessao sessao={item} posicao={index+1} onAbrir={() => handleAbrir(item)} onEditar={() => handleEditar(item)} onExcluir={() => handleExcluir(item)}/>)}
           />
           <AppFabButton onPress={handleNovaSessao} position='bottom-right' color={AppColors.danger} />
         </View>

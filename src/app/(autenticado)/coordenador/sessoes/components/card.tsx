@@ -3,23 +3,24 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Sessao, getTotalPresentes } from '../../../../../models/sessao';
 import { LinearGradient } from 'expo-linear-gradient';
 import { dataFormat } from '../../../../../helpers/general';
-import { CardButton } from '.';
+import CardButton from './card-button';
 
 export interface CardSessaoProps {
     sessao: Sessao;
     posicao: number;
+    onAbrir(): void;
     onExcluir(): void;
     onEditar(): void;
 }
 // =====
-function CardSessao ({sessao, posicao, onEditar, onExcluir}: CardSessaoProps) {
+function CardSessao ({sessao, posicao, onEditar, onExcluir, onAbrir }: CardSessaoProps) {
 
     // ========================================================
     return (
       <LinearGradient colors={['#3d4e82', '#6d7ef2']} start={{x: 0, y: 1}} end={{x: 1, y: 0}} style={styles.container}>
 
         {/* DADOS  */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onAbrir}>
           <View style={styles.row}>
               {/* Numero da sessão */}
               <View style={styles.item}>

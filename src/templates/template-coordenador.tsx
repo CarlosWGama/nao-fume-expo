@@ -3,8 +3,7 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { AppHeaderButton } from './components/header-button';
-import { CoordenadorProvider } from '../contexts/coordenador-context';
+import { AppHeaderButton } from './components';
 
 export interface CoordenadorTemplateProps {
     title: string
