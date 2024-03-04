@@ -25,7 +25,7 @@ function AppTemplateSessao ({children, title}: AppTemplateSessaoProps) {
             </View>
             
             {/* MAIN */}
-            <View>
+            <View style={{backgroundColor: 'white', flex: 1}}>
                 {children}
             </View>
       </View>
