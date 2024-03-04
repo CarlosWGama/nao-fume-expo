@@ -18,8 +18,8 @@ export default function Sessoes (props: SessoesProps) {
     // =========================================================
     const buscarSessoes = async () => {
       setSessoes([
-        new Sessao('1', '2024-02-01', '123123', true, [new DadosPacientesSessao('12312', true, 'Carlos', SituacaoSessao.ABSTINENTE, 'aaaaa'), new DadosPacientesSessao('12312', false, 'Carlos', SituacaoSessao.ABSTINENTE, 'aaaaa')], false),
-        new Sessao('2', '2024-03-02', '123123', true, [new DadosPacientesSessao('12312', false, 'Maria', SituacaoSessao.FUMANDO, 'aaaaa')], false),
+        new Sessao('1', '2024-02-01', '123123', true, [new DadosPacientesSessao('12312', true, 'Carlos Alberto Correia Lessa Filho aaaa aaaaa aaa', SituacaoSessao.ABSTINENTE, 'aaaaa'), new DadosPacientesSessao('12312', false, 'Carlos', SituacaoSessao.ABSTINENTE, 'aaaaa')], false),
+        new Sessao('2', '2024-03-02', '123123', true, [new DadosPacientesSessao('12312', false, 'Maria', SituacaoSessao.FUMANDO)], false),
       ])
     }
     // ========
