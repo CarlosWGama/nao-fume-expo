@@ -20,7 +20,7 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
     // ===============================================================================
     return (
         
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
             <View style={styles.container}>
                 {/* ============= HEADER ============= */}
                 <View style={styles.header} >
