@@ -19,6 +19,8 @@ export default function LoginScreen (props) {
       //Realiza o login de teste
       if (codigo == 1)
         router.replace('/coordenador/pacientes')
+      else if (codigo == 2)
+        router.replace('/pacientes/perfil')
       else 
         setErro('Código ou senha incorreta!')
     } 

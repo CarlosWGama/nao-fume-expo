@@ -12,7 +12,7 @@ export default function Initial (props) {
         (async () => {
             await new Promise((resolve) => setTimeout(() => resolve(), 1000));
             //router.replace('/login')
-            router.replace('/coordenador/relatorios')
+            router.replace('/pacientes/perfil')
         })()
     }, []);
 

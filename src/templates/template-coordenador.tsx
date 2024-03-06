@@ -27,8 +27,8 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
                     {/* BTN SAIR */}
                     <TouchableOpacity onPress={handleSair}>
                         <View style={styles.btnSairContainer}>
-                            <MaterialIcons name="exit-to-app" color="white" size={16} />
-                            <Text style={{color:'white', fontSize: 12, fontWeight: 'bold' }}>Sair</Text>
+                            <MaterialIcons name="exit-to-app" color="white" size={18} />
+                            <Text style={{color:'white', fontSize: 14, fontWeight: 'bold' }}>Sair</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -55,7 +55,7 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
 const styles = StyleSheet.create({
     container: {
         backgroundColor: AppColors.primary,
-        paddingTop: 25,
+        paddingTop: 30,
         paddingHorizontal: 10
     },
     header: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         textAlign: 'center', 
         flex: 1,
         fontWeight:'bold',
-        fontSize: 16,
+        fontSize: 20,
         margin: 5
     },
     btnSairContainer: {

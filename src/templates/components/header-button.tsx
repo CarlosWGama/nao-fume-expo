@@ -21,8 +21,8 @@ function AppHeaderButton ({icon, title, page, selecionado}: AppHeaderButtonProps
     return (
       <TouchableOpacity onPress={changePage}>
         <View style={styles.container}>
-              <Ionicons name={icon + (selecionado ? '' : '-outline')} color='white' size={16} />
-              <Text style={{color: 'white', fontWeight: (selecionado ? 'bold' : '400')}}>{title}</Text>
+              <Ionicons name={icon + (selecionado ? '' : '-outline')} color='white' size={20} />
+              <Text style={{fontSize: 16, color: 'white', fontWeight: (selecionado ? 'bold' : '400')}}>{title}</Text>
         </View>
       </TouchableOpacity>
     );
