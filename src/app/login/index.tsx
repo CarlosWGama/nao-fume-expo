@@ -5,22 +5,28 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { AppInput } from './components';
 import { AppButton } from '../../templates/components';
 import { router } from 'expo-router';
+import { usePacienteContext } from '../../contexts/paciente-context';
+import { Paciente } from '../../models/paciente';
 
 
 export default function LoginScreen (props) {
 
     const [ erro, setErro ] = React.useState<null|string>(null);
-
     // =========================================================================
     const handleLogin = async ({codigo, senha}) => {
       setErro(null)
       await new Promise(resolve => setTimeout(() => resolve(), 300))
-
-      //Realiza o login de teste
-      if (codigo == 1)
+      
+      //Loga como Admin
+      if (codigo == 1) {
         router.replace('/coordenador/pacientes')
-      else if (codigo == 2)
+      }
+      //Loga como Paciente
+      else if (codigo == 2) {
+        const { setUsuario } = usePacienteContext();
+        setUsuario(new Paciente('2', 'Carlos Paciente', 2, 10, 0.1, '1', '2024-03-07', 1, 4, 2, 2, 3, 10.5, 5.5, true, 2, false, [], ['sf1']))
         router.replace('/pacientes/perfil')
+      }
       else 
         setErro('Código ou senha incorreta!')
     } 

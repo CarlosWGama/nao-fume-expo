@@ -18,7 +18,8 @@ export class Paciente {
                 public dinheiroAcumulado: number = 0, public dinheiroDisponivel: number = 0,
                 public primeiroAcesso: boolean = true,
                 public diasPraticoExercicio: number = 0, public excluido: boolean = false,
-                public questionariosDiarios: Questionario[] = []) { }
+                public questionariosDiarios: Questionario[] = [],
+                public conquistasAlcancadas: string[] = []) { }
 }
 
 //função para retornar o avatar selecionado
