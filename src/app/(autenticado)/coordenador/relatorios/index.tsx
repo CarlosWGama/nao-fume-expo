@@ -32,7 +32,7 @@ export default function Relatorios (props: RelatoriosProps) {
     // =========
     const carregarGrafico = async () => {
       //Buscar sessões
-      const sessoes: Sessao[] = await sessoesService.buscarSessoes();
+      const sessoes: Sessao[] = await sessoesService.buscarSessoes('1');
       
       const newInfo: any = [];
       sessoes.forEach(s => {
