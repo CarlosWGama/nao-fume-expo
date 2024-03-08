@@ -3,6 +3,6 @@ export const AppColors = {
     success: '#10dc60',
     danger: '#e63e3e',
     light: '#f4f5f8',
-    warning: '#ffce00',
+    warning: '#ffd14c',
     lightgrey: '#dedede',
 }
