@@ -5,7 +5,7 @@ import { AppColors } from '../colors';
 export interface AppItemFormProps {
     children: any,
     error?: any,
-    label: string
+    label: string,
 }
 // ======
 function AppItemForm ({children, error, label}: AppItemFormProps) {

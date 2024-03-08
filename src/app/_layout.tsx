@@ -25,6 +25,14 @@ export default function LayoutCoordenador () {
                                 headerTintColor: 'white',
                                 title: 'Sessão'
                             }} />
+
+
+                            <Stack.Screen name="(autenticado)/pacientes/(tabs)/perfil/editar/index" options={{
+                                headerShown: true,
+                                headerStyle: {backgroundColor: AppColors.warning},
+                                headerTintColor: 'white',
+                                title: 'Editando Conta'
+                            }} />
                         </Stack>
                     </PacienteProvider>
                 </CoordenadorProvider>
