@@ -19,6 +19,7 @@ function AppButton ({color, transparent, title, onPress, textColor, disabled, ic
             <View style={[styles.container, 
                 {
                     backgroundColor: (transparent ? 'transparent' : color),
+                    elevation: (transparent ? 0 : 1),
                     opacity: ( disabled? 0.4 : 1),
                     borderColor: color}
                 ]}>
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         padding: 5,
+        paddingHorizontal: 10,
         alignItems: 'center',
         borderRadius: 3,
         borderWidth: 2
