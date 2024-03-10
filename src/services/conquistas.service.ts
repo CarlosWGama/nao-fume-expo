@@ -49,13 +49,15 @@ const ConquistasService = {
     /**
      * Verifica se não possui a conquista, caso não possua, adiciona
      * @param paciente 
-     * @param chave 
      */
-    adicionarConquista: (chave: string, conquistas: string[] = []) => {
-        if (!conquistas.includes(chave))
-            conquistas.push(chave);
-        return conquistas;
+    atualizarConquistas: (paciente: Paciente) => {
+        ConquistasService.conquistaDiasSemFumar(paciente);
+        ConquistasService.conquistaDiasSeguidosSemFumar(paciente);
+        ConquistasService.conquistaExercicio(paciente);
+        ConquistasService.conquistaFinanceira(paciente);
+        //salvar no banco
     },
+
      /**
      * Libera as conquistas de sias sem fumar (mesmo não seguidos)
      * @param paciente 

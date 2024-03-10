@@ -34,7 +34,7 @@ export default function PrimeiroAcessoScreen (props: PrimeiroAcessoScreenProps) 
       paciente.primeiroAcesso = false;
       setUsuario(paciente);
       pacientesSrv.atualizar(paciente);
-      router.replace('/pacientes/perfil')
+      router.replace('/pacientes/questionarios/diario')
     }
     // ==========================================================================
     return (

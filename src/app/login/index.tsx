@@ -24,8 +24,12 @@ export default function LoginScreen (props) {
       //Loga como Paciente
       else if (codigo == 2) {
         const { setUsuario } = usePacienteContext();
-        setUsuario(new Paciente('2', 'Carlos Paciente', 2, 10, 0.1, '1', '2024-03-07', 1, 4, 2, 2, 3, 10.5, 5.5, true, 2, false, [], ['sf1']))
-        router.replace('/pacientes/perfil')
+        const usuario = new Paciente('2', 'Carlos Paciente', 2, 10, 0.1, '1', '2024-03-07', 1, 4, 2, 2, 3, 10.5, 5.5, true, 2, false, [], ['sf1']);
+        setUsuario(usuario)
+        if (usuario.primeiroAcesso)
+            router.replace('/pacientes/questionarios/primeiro-acesso')
+        else
+            router.replace('/pacientes/questionarios/diario')
       }
       else 
         setErro('Código ou senha incorreta!')
