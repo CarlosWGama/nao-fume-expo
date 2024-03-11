@@ -7,32 +7,35 @@ import { AppButton } from '../../templates/components';
 import { router } from 'expo-router';
 import { usePacienteContext } from '../../contexts/paciente-context';
 import { Paciente } from '../../models/paciente';
-
+import { useUsuariosService } from '../../services/usuarios.service';
 
 export default function LoginScreen (props) {
 
     const [ erro, setErro ] = React.useState<null|string>(null);
+    
+    const usuarioSrv = useUsuariosService();
     // =========================================================================
     const handleLogin = async ({codigo, senha}) => {
       setErro(null)
-      await new Promise(resolve => setTimeout(() => resolve(), 300))
+      const { logado, paciente, nivel } = await usuarioSrv.logar(codigo, senha);
       
-      //Loga como Admin
-      if (codigo == 1) {
-        router.replace('/coordenador/pacientes')
+      //Falha login
+      if (!logado) {
+        setErro('Código ou senha incorreta!');
+        return;
       }
-      //Loga como Paciente
-      else if (codigo == 2) {
+
+      //Logado como Coordenador
+      if (nivel == 'coordenador') router.replace('/coordenador/pacientes')
+      else {
         const { setUsuario } = usePacienteContext();
-        const usuario = new Paciente('2', 'Carlos Paciente', 2, 10, 0.1, '1', '2024-03-07', 1, 4, 2, 2, 3, 10.5, 5.5, true, 2, false, [], ['sf1']);
-        setUsuario(usuario)
-        if (usuario.primeiroAcesso)
+        setUsuario(paciente)
+        if (paciente?.primeiroAcesso)
             router.replace('/pacientes/questionarios/primeiro-acesso')
         else
             router.replace('/pacientes/questionarios/diario')
-      }
-      else 
-        setErro('Código ou senha incorreta!')
+      } 
+        
     } 
     // =========================================================================
     return (

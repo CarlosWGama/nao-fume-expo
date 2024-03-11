@@ -1,0 +1,42 @@
+config:
+  (usuarios):
+    totalUsuarios: number 
+
+pacientes:
+  (userID):
+    avatar: number,
+    cigarrosEvitados: number,
+    codigo: number,
+    coordenadorUID: userID,
+    diasPraticoExercicio: number,
+    diasSeguidosSemFumar: number,
+    diasSemFumar: number,
+    dinheiroAcumulado: number,
+    dinheiroDisponivel: number,
+    excluido: boolean,
+    maxDiasSemFumar: number,
+    mediaCigarros: number,
+    nome: string,
+    precoCigarro: number,
+    primeiroAcesso: boolean,
+    rank: number,
+    uid: uuid,
+    ultimoDiaRespondido: string(yyyy-mm-dd),
+    questionarios:
+       [
+        cigarros: number (total fumado)
+        dia: string (yyyy-mm-dd)
+        exercitou: boolean
+        fumou: boolean
+        humor: 1 - baixo | 2 - medio | 3 - alto
+        vontadeFumar: 1 - baixo | 2 - médio | 3 - alto
+      ]
+
+
+usuarios:
+  (userID):
+    codigo: int
+    excluido: boolean
+    nivel: 1 - paciente | 2 - coordenador
+    uid: userID
+
