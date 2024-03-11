@@ -9,6 +9,7 @@ import { Paciente } from '../models/paciente';
 export default function Initial (props) {
 
     const { setUsuario } = usePacienteContext();
+    
     // =============================================
     useEffect(() => {
         //Redireciona para tela de login

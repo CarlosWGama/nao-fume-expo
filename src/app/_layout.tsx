@@ -4,16 +4,9 @@ import { AppColors } from "../templates/colors";
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { PacienteProvider } from "../contexts/paciente-context";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../config/firebase";
-import { initializeAuth, getReactNativePersistence } from '@firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function LayoutInicial () {
-
-    const app = initializeApp(firebaseConfig);
-    initializeAuth(app, { persistence: getReactNativePersistence(AsyncStorage)})
-
     
     return (
         <GestureHandlerRootView style={{flex: 1}}>

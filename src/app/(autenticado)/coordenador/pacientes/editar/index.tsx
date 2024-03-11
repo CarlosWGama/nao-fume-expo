@@ -9,6 +9,8 @@ import MaskInput, { Masks, createNumberMask } from 'react-native-mask-input';
 import { dataFormat } from '../../../../../helpers/general';
 import Toast from 'react-native-root-toast';
 import * as Yup from 'yup';
+import { usePacientesService } from '../../../../../services/pacientes.service';
+import { router } from 'expo-router';
 
 
 export interface PacienteEditarScreenProps {
@@ -17,9 +19,30 @@ export interface PacienteEditarScreenProps {
 export default function PacienteEditarScreen (props: PacienteEditarScreenProps) {
 
     const { paciente } = useCoordenadorContext();
+    const pacientesSrv = usePacientesService();
     // ==============================================================
-    const handleSalvar = async () => {
-      Toast.show('Paciente salvo com sucesso!')
+    const handleSalvar = async (dados: Paciente) => {
+      
+      if (!dados.uid) {
+        const retorno = await pacientesSrv.cadastrar(dados);
+        if (retorno.sucesso) {
+          Toast.show(`Paciente de código ${retorno.codigo} atualizado com sucesso`);
+          router.back();
+        } else {
+          Toast.show('Não foi possível completar a operação');
+        }
+
+      } 
+      else {
+        const retorno = await pacientesSrv.atualizar(dados);
+        if (retorno.sucesso)
+          Toast.show('Paciente atualizado com sucesso!')
+        else 
+          Toast.show('Não foi possível completar a operação');
+      } 
+
+      
+      
     }
     // ==============================================================
     return (
@@ -83,7 +106,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
               {/* PREÇO CIGARRO */}
               <AppItemForm label="Preço do cigarro" error={errors.precoCigarro && touched.precoCigarro}>
                 <MaskInput style={{flex:1, marginLeft: 10}} 
-                  value={""+values.precoCigarro}  
+                  value={""+values.precoCigarro.toFixed(2)}  
                   onChangeText={handleChange('precoCigarro')} 
                   onBlur={handleBlur('precoCigarro')}
                   placeholder='Valor em reais' 

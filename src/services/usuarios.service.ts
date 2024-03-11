@@ -1,16 +1,17 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, getDoc, doc } from 'firebase/firestore';
 import { Paciente } from '../models/paciente';
+import { auth, db } from '../config/firebase';
 
-const auth = getAuth();
-const db = getFirestore();
+
 /**
  * Controla o acesso a API
- */
+*/
 const UsuariosService = {
-
+    
     /* Realiza o login de usuário */
     logar: async (codigo: number, senha: string) => {
+        
         const retorno: { logado: boolean, paciente?: Paciente, nivel: 'coordenador'|'paciente'} = { logado: false, nivel: 'coordenador' };
         const email = `${codigo}@cwg.services`;
 

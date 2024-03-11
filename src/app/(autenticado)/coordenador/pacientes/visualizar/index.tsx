@@ -16,25 +16,10 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
 
 
     const { paciente } = useCoordenadorContext();
-    const [ questionariosDiarios, setQuestionariosDiarios ] = React.useState<Questionario[]> ();
     // ================================================================
     const handleEditar = async () => {
         router.push('/coordenador/pacientes/editar')
-    }
-    // =======
-    const buscarQuestionariosDiarios = async () => {
-        setQuestionariosDiarios([
-            new Questionario('2024-02-20', 0, false, 3, true, 0),
-            new Questionario('2024-02-21', 1, true, 2, false, 1),
-            new Questionario('2024-02-22', 2, false, 1, false, 2),
-            new Questionario('2024-02-23', 2, false, 0, true, 1),
-        ])
-    }
-    // ====
-    React.useEffect(() => {
-        buscarQuestionariosDiarios()
-    }, [])
-
+    }    
     // ================================================================
     return (
         <View style={{flex: 1}}>
@@ -114,8 +99,8 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
                 </View>
 
                 <FlatList
-                    data={questionariosDiarios}
-                    extraData={questionariosDiarios}
+                    data={paciente?.questionariosDiarios}
+                    extraData={paciente?.questionariosDiarios}
                     renderItem={({item, index}) => (
                         <View style={styles.historicoRow} key={""+index}>
                             <View style={styles.tableData}>
