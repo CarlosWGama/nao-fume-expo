@@ -17,9 +17,11 @@ const UsuariosService = {
 
         try {
             const autenticacao = (await signInWithEmailAndPassword(auth, email, senha)).user;
+            console.log(autenticacao);
             const snapshot = await getDoc(doc(db, 'usuarios', autenticacao.uid));
             if (snapshot.exists()) {
                 const usuario = snapshot.data();
+                console.log(usuario);
 
                 //Logado
                 if (usuario.excluido == false) {
