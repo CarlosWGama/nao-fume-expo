@@ -6,8 +6,10 @@ import { DadosPacientesSessao, Sessao, SituacaoSessao } from '../../../../models
 import { AppFabButton } from '../../../../templates/components';
 import { AppColors } from '../../../../templates/colors';
 import { useCoordenadorContext } from '../../../../contexts/coordenador-context';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import Toast from 'react-native-root-toast';
+import { useSessoesService } from '../../../../services/sessoes.service';
+import { auth } from '../../../../config/firebase';
 
 export interface SessoesProps {
 }
@@ -15,12 +17,11 @@ export interface SessoesProps {
 export default function Sessoes (props: SessoesProps) {
     const [ sessoes, setSessoes ] = useState<Sessao[]>([])
     const { setSessao } = useCoordenadorContext();
+    const sessoesSrv = useSessoesService();
     // =========================================================
     const buscarSessoes = async () => {
-      setSessoes([
-        new Sessao('1', '2024-02-01', '123123', true, [new DadosPacientesSessao('12312', true, 'Carlos Alberto Correia Lessa Filho aaaa aaaaa aaa', SituacaoSessao.ABSTINENTE, 'aaaaa'), new DadosPacientesSessao('12312', false, 'Carlos', SituacaoSessao.ABSTINENTE, 'aaaaa')], false),
-        new Sessao('2', '2024-03-02', '123123', true, [new DadosPacientesSessao('12312', false, 'Maria', SituacaoSessao.FUMANDO)], false),
-      ])
+      if (auth.currentUser)
+        setSessoes(await sessoesSrv.buscarSessoes(auth.currentUser.uid));
     }
     // ========
     const handleNovaSessao = async () => {
@@ -34,7 +35,11 @@ export default function Sessoes (props: SessoesProps) {
     }
     // ========
     const handleExcluir = async (sessao: Sessao) => {
-      Toast.show('Tarefa excluida com sucesso!')
+      const retorno = await sessoesSrv.excluir(sessao);
+      if (retorno.sucesso)
+        Toast.show('Tarefa excluida com sucesso!')
+      else
+        Toast.show('Não foi possível completar a operação')
     }
     // ========
     const handleAbrir = async (sessao: Sessao) => {
@@ -42,9 +47,9 @@ export default function Sessoes (props: SessoesProps) {
       router.push('/coordenador/sessoes/visualizar/geral')
     }
     // ========
-    useEffect(() => {
+    useFocusEffect(() => {
         buscarSessoes();
-    }, []);
+    });
     // =========================================================
     return (
       <CoordenadorTemplate title='Sessões'>

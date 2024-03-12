@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Formik } from 'formik';
 import * as React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
 import { AppInput } from './components';
 import { AppButton } from '../../templates/components';
 import { router } from 'expo-router';
@@ -43,31 +43,31 @@ export default function LoginScreen (props) {
         colors={['#2af598', '#009efd']}
         style={styles.container}
       >
-        {/* LOGO */}
-        <Image source={require('./../../assets/imgs/logo.png')} style={styles.logo}/>
+          {/* LOGO */}
+          <Image source={require('./../../assets/imgs/logo.png')} style={styles.logo}/>
 
-        {/* FORM */}
-        <Formik
-          initialValues={{codigo: '', senha: ''}}
-          onSubmit={handleLogin} >
-          {({handleChange, handleSubmit, isSubmitting}) => (
-            <View style={styles.form}>
-                <Text style={[styles.text, {textAlign: 'center', fontSize: 20}]}>Acesse</Text>
-                <AppInput label="Código" onChangeText={handleChange('codigo')}/>
-                <AppInput label="Senha" onChangeText={handleChange('senha')} password/>
+          {/* FORM */}
+          <Formik
+            initialValues={{codigo: '', senha: ''}}
+            onSubmit={handleLogin} >
+            {({handleChange, handleSubmit, isSubmitting}) => (
+              <View style={styles.form}>
+                  <Text style={[styles.text, {textAlign: 'center', fontSize: 20}]}>Acesse</Text>
+                  <AppInput label="Código" onChangeText={handleChange('codigo')}/>
+                  <AppInput label="Senha" onChangeText={handleChange('senha')} password/>
 
-                {erro && <Text style={styles.textError}>{erro}</Text>}
+                  {erro && <Text style={styles.textError}>{erro}</Text>}
 
-                <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' disabled={isSubmitting} />
-            </View>
-          )}
-        </Formik>
+                  <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' disabled={isSubmitting} />
+              </View>
+            )}
+          </Formik>
 
-        {/* FOOTER */}
-        <Text style={[styles.text, {fontSize: 20}]}>CESMAC</Text>
-        <Text style={styles.text}>Centro de Inovação Tecnologia</Text>
-        <Text style={styles.text}>Carlos W. Gama</Text>
-          
+          {/* FOOTER */}
+          <Text style={[styles.text, {fontSize: 20}]}>CESMAC</Text>
+          <Text style={styles.text}>Centro de Inovação Tecnologia</Text>
+          <Text style={styles.text}>Carlos W. Gama</Text>
+            
       </LinearGradient>
     );
 }

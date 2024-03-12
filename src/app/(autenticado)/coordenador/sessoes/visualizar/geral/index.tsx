@@ -6,25 +6,53 @@ import { useCoordenadorContext } from '../../../../../../contexts/coordenador-co
 import { AppButton, AppItemForm } from '../../../../../../templates/components';
 import { AppColors } from '../../../../../../templates/colors';
 import RadioGroup from 'react-native-radio-buttons-group';
-import { SituacaoSessao } from '../../../../../../models/sessao';
+import { DadosPacientesSessao, Sessao, SituacaoSessao } from '../../../../../../models/sessao';
 import Toast from 'react-native-root-toast';
+import { useSessoesService } from '../../../../../../services/sessoes.service';
+import { usePacientesService } from '../../../../../../services/pacientes.service';
 export interface SessoesGeralSecreenProps {
 }
 
 export default function SessoesGeralSecreen (props: SessoesGeralSecreenProps) {
 
-    const { sessao } = useCoordenadorContext();
+    const { sessao, setSessao } = useCoordenadorContext();
+    const sessoesSrv = useSessoesService();
+    const pacientesSrv = usePacientesService();
     // ========================================================================
-    const handleSalvar = async (dados) => {
-        await new Promise((resolve) => setTimeout(() => resolve(), 1000))
-        console.log(dados);
-        Toast.show('Salvo com sucesso!')
+    const handleSalvar = async ({pacientes}: {pacientes: DadosPacientesSessao[]}) => {
+        sessao.dadosPacientes = pacientes;
+        setSessao({...sessao});
+        const retorno = await sessoesSrv.atualizar(sessao);
+        if (retorno.sucesso)
+            Toast.show('Salvo com sucesso!')
+        else
+            Toast.show('Não foi concluir a operação')
     }
+    // -----------
+    const buscarPacientes = async () => {
+        const pacientes = await pacientesSrv.buscarPacientes();
+
+        const dadosPacientesIDs = sessao?.dadosPacientes.map(dados => dados.pacienteUID)
+
+        //Adiciona os pacientes que não estão na lista
+        pacientes.forEach(p => {
+            if (!dadosPacientesIDs?.includes(p.uid)) {
+                sessao.dadosPacientes.push(new DadosPacientesSessao(p.uid, false, p.nome))
+            }
+        })
+
+        setSessao({...sessao})
+
+    }
+    // ----------
+    React.useEffect(() => {
+        buscarPacientes()
+    }, []);
     // ========================================================================
     return (
         <AppTemplateSessao title='Geral'>
             <View>
-                <Text style={styles.title}>Pacientes presentes</Text>
+                <Text style={styles.title}>Pacientes presentes {sessao?.dadosPacientes.length}</Text>
 
                 <Formik
                     initialValues={{pacientes: sessao.dadosPacientes}}

@@ -9,6 +9,8 @@ import MaskInput, { Masks } from 'react-native-mask-input';
 import { dataFormat } from '../../../../../helpers/general';
 import Toast from 'react-native-root-toast';
 import * as Yup from 'yup';
+import { router } from 'expo-router';
+import { useSessoesService } from '../../../../../services/sessoes.service';
 
 
 export interface SessaoEditarScreenProps {
@@ -17,9 +19,21 @@ export interface SessaoEditarScreenProps {
 export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
 
     const { sessao } = useCoordenadorContext();
+    const sessoesSrv = useSessoesService();
     // ==============================================================
-    const handleSalvar = async () => {
-      Toast.show('Sessao salvo com sucesso!')
+    const handleSalvar = async (sessao: Sessao) => {
+      
+      let retorno = { sucesso: false };
+      
+      if (!sessao.id)  retorno = await sessoesSrv.cadastrar(sessao);
+      else retorno = await sessoesSrv.atualizar(sessao);
+
+      if (retorno.sucesso) {
+        Toast.show('Sessao salvo com sucesso!')
+        router.back();
+      } else {
+        Toast.show('Não foi possível realizar a operação');
+      }
     }
     // ==============================================================
     return (

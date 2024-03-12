@@ -30,7 +30,8 @@ function CardSessao ({sessao, posicao, onEditar, onExcluir, onAbrir }: CardSessa
               {/* Numero de pacientes */}
               <View style={styles.item}>
                 <Text style={styles.text}>Pacientes</Text>
-                <Text style={[styles.text, {fontSize: 18, fontWeight: 'bold'}]}>{getTotalPresentes(sessao.dadosPacientes)}/{sessao.dadosPacientes.length}</Text>
+                {sessao.dadosPacientes.length == 0 && <Text style={[styles.text, {fontSize: 18, fontWeight: 'bold'}]}>Não realizado</Text>}
+                {sessao.dadosPacientes.length > 0 && <Text style={[styles.text, {fontSize: 18, fontWeight: 'bold'}]}>{getTotalPresentes(sessao.dadosPacientes)}/{sessao.dadosPacientes.length}</Text>}
               </View>
               {/* Data da sessão */}
               <View style={styles.item}>
