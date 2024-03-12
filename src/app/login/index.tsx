@@ -14,11 +14,11 @@ export default function LoginScreen (props) {
     const [ erro, setErro ] = React.useState<null|string>(null);
     
     const usuarioSrv = useUsuariosService();
+    const { setUsuario } = usePacienteContext();
     // =========================================================================
     const handleLogin = async ({codigo, senha}) => {
       setErro(null)
       const { logado, paciente, nivel } = await usuarioSrv.logar(codigo, senha);
-      
       //Falha login
       if (!logado) {
         setErro('Código ou senha incorreta!');
@@ -28,7 +28,6 @@ export default function LoginScreen (props) {
       //Logado como Coordenador
       if (nivel == 'coordenador') router.replace('/coordenador/pacientes')
       else {
-        const { setUsuario } = usePacienteContext();
         setUsuario(paciente)
         if (paciente?.primeiroAcesso)
             router.replace('/pacientes/questionarios/primeiro-acesso')

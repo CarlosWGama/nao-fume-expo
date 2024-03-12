@@ -22,6 +22,7 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
          <Text style={styles.h1}>Questionario {dataFormat(dia)}</Text>
          <Formik
             initialValues={new Questionario(dia)}
+            enableReinitialize
             validationSchema={Yup.object({
                 fumou: Yup.boolean().required(),
                 exercitou: Yup.boolean().required(),
@@ -42,7 +43,7 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                             title="Sim" 
                             image={require('./../../../../../../assets/imgs/icons/smoking.png')} 
                             selected={values.fumou != undefined && values.fumou}
-                            onPress={() => setFieldValue('fumou', true)} />
+                            onPress={() => setFieldValue('fumou', true) } />
                         <ButtonQuestionario 
                             title="Não" 
                             image={require('./../../../../../../assets/imgs/icons/not-smoking.png')} 

@@ -9,6 +9,7 @@ import { usePacientesService } from '../../../../../services/pacientes.service';
 import { Paciente } from '../../../../../models/paciente';
 import { ScrollView } from 'react-native-gesture-handler';
 import Dicas from './components/dicas';
+import { useConquistasService } from '../../../../../services/conquistas.service';
 
 export interface QuestionarioDiarioScreenProps {
 }
@@ -20,6 +21,7 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
     const questionarioSrv = useQuestionariosService();
     const pacientesSrv = usePacientesService();
     const { usuario, setUsuario } = usePacienteContext();
+    const conquistasSrv = useConquistasService();
     // ===============================================================
     const buscarQuestionarios = async () => {
       const dias = questionarioSrv.buscarQuestionariosAbertos(usuario);
@@ -34,15 +36,33 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
     const responderDia = (questionario: Questionario) => {
         console.log(questionario);
         const novosDados = {...usuario} as Paciente;
+
+        const cigarrosEvitados = Math.max(0, novosDados.mediaCigarros - questionario.cigarros);
+        const economizado = cigarrosEvitados * novosDados.precoCigarro;
+
+        //Adiciona as informações ao perfil do usuário
+        if (questionario.fumou)
+          novosDados.diasSeguidosSemFumar = 0;
+        else
+          novosDados.diasSeguidosSemFumar++;
+        novosDados.diasSemFumar++
+        novosDados.cigarrosEvitados += cigarrosEvitados;
+        novosDados.dinheiroAcumulado += economizado;
+        novosDados.dinheiroDisponivel += economizado;
         novosDados.ultimoDiaRespondido = questionario.dia;
+        //Adiciona questionário
         novosDados.questionariosDiarios.push(questionario);
         setUsuario(novosDados)
         setDiaAtual(diaAtual+1);
         scrollRef.current?.scrollTo({y: 0, x: 0, animated: true});
+
+        conquistasSrv.atualizarConquistas(novosDados);
+        console.log(novosDados);
         //Após responder tudo, salva as modificações
         if ((diaAtual + 1) >= dias.length) {
           pacientesSrv.atualizar(novosDados);
         }  
+
     }
     // --------
     React.useEffect(() => {

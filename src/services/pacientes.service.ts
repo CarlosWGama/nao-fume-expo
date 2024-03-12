@@ -65,7 +65,8 @@ const PacientesService = {
                     await alterarSenha({usuarioID: paciente.uid, senha: paciente.senha});
                 }
                 delete paciente.senha;
-                await updateDoc(doc(db, 'pacientes', paciente.uid), { ...paciente });
+                console.log(JSON.parse(JSON.stringify(paciente)));
+                await updateDoc(doc(db, 'pacientes', paciente.uid), JSON.parse(JSON.stringify(paciente)));
                 retorno.sucesso = true;
             }
         } catch(e) {

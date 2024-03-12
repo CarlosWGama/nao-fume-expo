@@ -46,12 +46,14 @@ const QuestionariosService = {
   buscarQuestionariosAbertos: (paciente: Paciente) => {
       let ultimoDiaRespondido =  paciente.ultimoDiaRespondido;
       let diasResponder:string[] = [];
-      let diaAtual = moment().format('YYYY-MM-DD');
+      const diaAtual = moment().format('YYYY-MM-DD');
+      const ontem = moment(diaAtual).subtract(1, 'days').format('YYYY-MM-DD');
       //Recupera os dias não respondidos
-      while (ultimoDiaRespondido < diaAtual) {
-        diasResponder.push(ultimoDiaRespondido); //Adiciona no inicio do vetor
+      while (ultimoDiaRespondido < ontem) {
         ultimoDiaRespondido = moment(ultimoDiaRespondido).add(1, 'days').format('YYYY-MM-DD');
+        diasResponder.push(ultimoDiaRespondido); //Adiciona no inicio do vetor
       }
+
       return diasResponder;
   }
 }

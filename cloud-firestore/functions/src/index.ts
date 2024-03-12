@@ -9,7 +9,7 @@ import { Paciente } from "./paciente";
 initializeApp()
 
 //firebase deploy --only functions
-//firebase deploy --only functions:addMessage
+//firebase deploy --only functions:criarPaciente
 //firebase functions:delete criarPaciente alterarSenha alterarPaciente
 
 
