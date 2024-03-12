@@ -29,28 +29,25 @@ export default function ConquistasScreen (props: ConquistasScreenProps) {
                 {/* CONQUISTAS ALCANÇADAS */}
                 <Text style={styles.sessaoText}>Conquistas Alcançadas</Text>
                 <View style={styles.cards}>
-                    {conquistasService.buscarConquistasExistentes().map(conquista => (
-                        <>
-                        { usuario?.conquistasAlcancadas.includes(conquista.codigo)  && <View style={[styles.card, { width: 150}]}>
+                    {conquistasService.buscarConquistasExistentes().filter(c => usuario?.conquistasAlcancadas.includes(c.codigo)).map(conquista => (
+                        <View style={[styles.card, { width: 150}]} key={conquista.codigo}>
                             <Text style={styles.cardH1}>{conquista.titulo}</Text>
                             <Image source={conquista.imagem} style={{width: 75, height: 75}} />
                             <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
-                        </View>}
-                        </>
+                        </View>
+                        
                     ))}
                 </View>
 
                 {/* PROXIMAS CONQUISTAS */}
                 <Text style={styles.sessaoText}>Próximas Conquistas</Text>
                 <View style={styles.cards}>
-                    {conquistasService.buscarConquistasExistentes().map(conquista => (
-                        <>
-                        { !usuario?.conquistasAlcancadas.includes(conquista.codigo)  && <View style={[styles.card, { width: 150, backgroundColor: '#a098a2'}]}>
+                    {conquistasService.buscarConquistasExistentes().filter(c => !usuario?.conquistasAlcancadas.includes(c.codigo)).map(conquista => (
+                        <View style={[styles.card, { width: 150, backgroundColor: '#a098a2'}]} key={conquista.codigo}>
                             <Text style={styles.cardH1}>{conquista.titulo}</Text>
                             <Image source={conquista.imagem} style={{width: 75, height: 75}} />
                             <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
-                        </View>}
-                        </>
+                        </View>
                     ))}
                 </View>
             </ScrollView>

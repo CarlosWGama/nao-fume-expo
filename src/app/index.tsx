@@ -21,7 +21,7 @@ export default function Initial (props) {
                     router.replace('/login')
                 else {
                     const { logado, paciente, nivel } = await usuarioSrv.buscarUsuarioLogado();
-                    console.log(logado, paciente, nivel)
+
                     //Falha login
                     if (!logado) {
                         router.replace('/login')
