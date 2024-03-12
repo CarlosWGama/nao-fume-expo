@@ -43,6 +43,37 @@ const UsuariosService = {
     },
 
     /**
+     * Retorna os dados od usuário que está logado
+     * @returns 
+     */
+    buscarUsuarioLogado: async () => {
+        const retorno: { logado: boolean, paciente?: Paciente, nivel: 'coordenador'|'paciente'} = { logado: false, nivel: 'coordenador' };
+        if (auth.currentUser) {   
+            try {
+                const snapshot = await getDoc(doc(db, 'usuarios', auth.currentUser.uid));
+                if (snapshot.exists()) {
+                    const usuario = snapshot.data();
+
+                    //Logado
+                    if (usuario.excluido == false) {
+                        retorno.logado = true;
+
+                        //Se paciente, buscar dados 
+                        if (usuario.nivel == 1) {
+                            retorno.paciente = (await getDoc(doc(db, 'pacientes', auth.currentUser.uid))).data() as Paciente;
+                            retorno.nivel = 'paciente';
+                        } 
+                    }
+                }
+            } catch (e) {
+                console.log('Erro login')
+            }
+        }
+
+        return retorno;
+    },
+
+    /**
      * Altera a senha do usuário logado
      * @param senha 
      */
