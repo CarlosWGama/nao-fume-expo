@@ -9,6 +9,7 @@ import { useSessoesService } from '../../../../services/sessoes.service';
 import { usePacientesService } from '../../../../services/pacientes.service';
 import { Dimensions } from "react-native";
 import { AppColors } from '../../../../templates/colors';
+import { auth } from '../../../../config/firebase';
 
 export interface RelatoriosProps {
 }
@@ -32,7 +33,7 @@ export default function Relatorios (props: RelatoriosProps) {
     // =========
     const carregarGrafico = async () => {
       //Buscar sessões
-      const sessoes: Sessao[] = await sessoesService.buscarSessoes('1');
+      const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth.currentUser?.uid);
       
       const newInfo: any = [];
       sessoes.forEach(s => {
