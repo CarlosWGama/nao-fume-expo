@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, updatePassword } from 'firebase/auth';
 import { getFirestore, getDoc, doc } from 'firebase/firestore';
 import { Paciente } from '../models/paciente';
 import { auth, db } from '../config/firebase';
@@ -17,7 +17,6 @@ const UsuariosService = {
 
         try {
             const autenticacao = (await signInWithEmailAndPassword(auth, email, senha)).user;
-            console.log(autenticacao);
             const snapshot = await getDoc(doc(db, 'usuarios', autenticacao.uid));
             if (snapshot.exists()) {
                 const usuario = snapshot.data();
@@ -48,7 +47,7 @@ const UsuariosService = {
      * @param senha 
      */
     alterarSenha: async (senha: string) => {
-
+        await updatePassword(auth.currentUser, senha);
     }
 }
 

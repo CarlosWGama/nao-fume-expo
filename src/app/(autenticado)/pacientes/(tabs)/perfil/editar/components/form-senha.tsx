@@ -14,8 +14,12 @@ export function FormSenha (props: FormSenhaProps) {
     const usuariosSrv = useUsuariosService();
     // ====================================================================================
     const handleAlterarSenha = async ({senha}) => {
-        await usuariosSrv.alterarSenha(senha);
-        Toast.show('Senha alterada');
+        try {
+            await usuariosSrv.alterarSenha(senha);
+            Toast.show('Senha alterada');
+        } catch( e ) {
+            Toast.show('Não foi possível alterar senha. Deslogue e logue novamente para garantir que é você. ');
+        }
     }
     // ====================================================================================
     return (

@@ -22,9 +22,13 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
     const handleAlterarDados = async ({precoCigarro, avatar}) => {
         const novosDados = {...usuario, precoCigarro: parseFloat(precoCigarro), avatar} as Paciente;
         
-        setUsuario(novosDados)
-        Toast.show('Dados atualizados');
-        pacientesSrv.atualizar(novosDados);
+        const retorno = await pacientesSrv.atualizar(novosDados);
+        if (retorno.sucesso) {
+            setUsuario(novosDados)
+            Toast.show('Dados atualizados');
+        } else {
+            Toast.show('Não foi possível completar a ação');
+        }
 
     }
     // ====================================================================================

@@ -4,6 +4,7 @@ import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { AppHeaderButton } from './components';
+import { auth } from '../config/firebase';
 
 export interface PacienteTemplateProps {
     title: string;
@@ -14,6 +15,7 @@ export interface PacienteTemplateProps {
 export default function PacienteTemplate ({title, children, color}: PacienteTemplateProps) {
      // ==============================================================================
      const handleSair = async () => {
+        auth.signOut();
         router.replace('/login')
     }
     // ===============================================================================
