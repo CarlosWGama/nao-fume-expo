@@ -1,24 +1,46 @@
 import { Mensagem } from "../models/mensagem";
-import { Paciente } from "../models/paciente";
+import moment from "moment";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
+//Quantidade máxima de mensagem por chat
+const LIMITE = 100;
 /**
  * Controla o acesso a API
  */
 const MensagensService = {
 
     /* BUSCA OS PACIENTES VINCULADOS AO COORDENADOR */
-    buscarMensagens: async () => {
-        return [
-            new Mensagem(1, 'Teste 123', '2024-03-01', 'aaa', 'aaa', 'asdasdasd'),    
-            new Mensagem(2, 'Olá tudo bem?', '2024-03-02', 'bbb', 'bbb', 'asdasdasd'),    
-            new Mensagem(3, 'Tudo certo! E com você', '2024-03-02', 'ccc', 'ccc', 'asdasdasd'),    
-            new Mensagem(4, 'Está tudo ótimo! mensagem bem grande para ver se o texto quebra conforme eu quero', '2024-03-03', 'ddd', 'ddd', 'asdasdasd'),    
-        ]
+    buscarMensagens: async (coordenadorUID) => {
+        let mensagens: Mensagem[] = [];
+        const snapshot = await getDoc(doc(db, 'avisos', coordenadorUID))
+        if (snapshot.exists()) 
+            mensagens = snapshot.data()?.mensagens as Mensagem[];
+        return mensagens;
     },
 
-    /* ENVIA UMA MENSGAEM PARA O CHAT */
-    enviar: async (usuarioID, mensagem) => {
-
+    /* ENVIA UMA MENSAGEM PARA O CHAT */
+    enviar: async (codigo, coordenadorUID, mensagem) => {
+        const retorno = { sucesso: false, mensagens: []}
+        try {
+            let mensagens: Mensagem[] = [];
+            const snapshot = await getDoc(doc(db, 'avisos', coordenadorUID))
+            if (snapshot.exists())  
+                mensagens = snapshot.data()?.mensagens as Mensagem[];
+            if (!mensagens) mensagens = [];
+            
+            mensagens.push(new Mensagem(codigo, mensagem, moment().format('YYYY-MM-DD')))
+    
+            while (mensagens.length > LIMITE) 
+                mensagens.shift();
+    
+            setDoc(doc(db, 'avisos', coordenadorUID), {mensagens: [...JSON.parse(JSON.stringify(mensagens))]}) 
+            retorno.mensagens = mensagens;
+            retorno.sucesso = true;
+        } catch (e) {
+            console.log(e)
+        }
+        return retorno;
     }
 }
 

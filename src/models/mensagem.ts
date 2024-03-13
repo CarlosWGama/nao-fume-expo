@@ -5,5 +5,5 @@
  */
 export class Mensagem {
 
-    constructor(public pacienteCodigo?: number, public mensagem?: string, public data?: string, public uid?: string, public pacienteUID?: string, public coordenadorUID?: string) {}
+    constructor(public pacienteCodigo?: number, public mensagem?: string, public data?: string) {}
 }

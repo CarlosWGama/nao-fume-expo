@@ -6,6 +6,7 @@ import { useMensagensService } from '../../../../../services/mensagens.service';
 import { ItemMensagem } from './components';
 import { AppColors } from '../../../../../templates/colors';
 import { Ionicons } from '@expo/vector-icons'
+import { usePacienteContext } from '../../../../../contexts/paciente-context';
 
 
 export default function ChatScreen () {
@@ -14,16 +15,20 @@ export default function ChatScreen () {
     const [ mensagem, setMensagem ] = React.useState("");
     const flatlistRef = React.useRef<FlatList>(null);
     const mensagensService = useMensagensService();
+    const { usuario } = usePacienteContext();
     // ==================================================================
     const buscarMensagens = async () => {
-        setMensagens( await mensagensService.buscarMensagens())
+        setMensagens( await mensagensService.buscarMensagens(usuario?.coordenadorUID))
     }
     // ------
     const handleEnviar = async () => {
-        mensagensService.enviar('autor_id', mensagem);
+        const retorno = await mensagensService.enviar(usuario?.codigo, usuario?.coordenadorUID, mensagem);
         setMensagem("");
         Keyboard.dismiss();
-        flatlistRef.current?.scrollToEnd();
+        if (retorno.sucesso) {
+            flatlistRef.current?.scrollToEnd();
+            setMensagens([...retorno.mensagens])
+        }
     }
     // ------
     React.useEffect(() => {
