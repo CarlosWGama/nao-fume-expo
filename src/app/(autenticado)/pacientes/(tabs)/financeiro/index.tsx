@@ -15,6 +15,7 @@ import { Modalize } from 'react-native-modalize';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { TextInput } from 'react-native-gesture-handler';
+import MaskInput, { createNumberMask } from 'react-native-mask-input';
 
 export interface FinanceiroScreenProps {
 }
@@ -60,10 +61,17 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
         ])
     }
     // ----------
-    const handleCadastrar = async (meta: any) => {
-        metasService.cadastrar(meta);
-        Toast.show('Meta cadastrada com suceeso');
-        modalRef.current?.close()
+    const handleCadastrar = async (meta: Meta) => {
+        meta.objetivo = parseFloat(meta.objetivo);
+        const retorno = await metasService.cadastrar(meta);
+        if (retorno.sucesso) {
+            metas.push(meta);
+            setMetas([...metas]);
+            Toast.show('Meta cadastrada com suceeso');
+            modalRef.current?.close()
+        } else {
+            Toast.show('Falha na operação');
+        }
     }
     // ----------
     const buscarMetas = async () => {
@@ -147,14 +155,22 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
                         })}
                         onSubmit={handleCadastrar}
                     >
-                        {({touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting, isValid}) => (
+                        {({values, touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting, isValid}) => (
                             <View>
                                 <Text style={{fontSize: 25, textAlign: 'center'}}>Cadastrar nova meta</Text>
                                 
                                 <TextInput onChangeText={handleChange('titulo')} placeholder='Digite o nome da meta' style={styles.input} onBlur={handleBlur('titulo')}/>
                                 { touched.titulo && errors.titulo && <Text style={styles.error}>{errors.titulo}</Text>}
 
-                                <TextInput onChangeText={handleChange('objetivo')} placeholder='O valor da meta' style={styles.input} onBlur={handleBlur('objetivo')} keyboardType='decimal-pad'/>
+                                <MaskInput 
+                                    value={""+values.objetivo}
+                                    onChangeText={handleChange('objetivo')} 
+                                    placeholder='O valor da meta' 
+                                    style={styles.input} 
+                                    onBlur={handleBlur('objetivo')} 
+                                    keyboardType='decimal-pad'
+                                    mask={createNumberMask({precision: 2, separator: '.'})	}
+                                    />
                                 { touched.objetivo && errors.objetivo && <Text style={styles.error}>{errors.objetivo}</Text>}
 
                                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10}}>
