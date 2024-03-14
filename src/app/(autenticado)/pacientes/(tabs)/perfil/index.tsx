@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 import { avatarURL } from '../../../../../models/paciente';
 import { useSessoesService } from '../../../../../services/sessoes.service';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Sessao } from '../../../../../models/sessao';
+import { DadosPacientesSessao, Sessao } from '../../../../../models/sessao';
 import { dataFormat } from '../../../../../helpers/general';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
@@ -22,7 +22,23 @@ export default function PerfilScreen (props: PerfilScreenProps) {
   const sessoesSrv = useSessoesService();
   // ==================================================================
   const buscarSessoes = async () => {
-    setSessoes(await sessoesSrv.buscarSessoes(usuario?.coordenadorUID))
+    const sessoes = await sessoesSrv.buscarSessoes(usuario?.coordenadorUID);
+    
+    //Verifica se tem sessão que ainda precisa ser respondida
+    let responderQuestionario = false
+    sessoes.forEach((sessao:Sessao, index) => {
+
+      const pacienteIndex = sessao.dadosPacientes.map(p => p.pacienteUID).indexOf(usuario.uid);
+      //Achou paciente
+      if (pacienteIndex >= 0 && sessao.data <= moment().format('YYYY-MM-DD') && !sessao.dadosPacientes[pacienteIndex].opiniao) {
+          responderQuestionario = true; 
+      }
+    })
+
+    if (responderQuestionario)
+      router.replace('/pacientes/questionarios/sessao')     
+    
+    setSessoes(sessoes);
   }
   // -------
   React.useEffect(() => {

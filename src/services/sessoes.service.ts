@@ -1,6 +1,8 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { DadosPacientesSessao, Sessao, SituacaoSessao } from "../models/sessao"
+import moment from "moment";
+import { Paciente } from "../models/paciente";
 
 /**
  * Controla o acesso a API
@@ -44,7 +46,7 @@ const SessoesService = {
      */
     atualizar: async (sessao: Sessao) => {
         const retorno: {sucesso: boolean} = { sucesso: false };
-        if (sessao.id && auth.currentUser && sessao.coordenadorUID == auth.currentUser.uid) {
+        if (sessao.id && auth.currentUser && (sessao.coordenadorUID == auth.currentUser.uid || sessao.dadosPacientes.map(p => p.pacienteUID).includes(auth.currentUser.uid))) {
             await updateDoc(doc(db, 'sessoes', sessao.id), JSON.parse(JSON.stringify(sessao))).then(() => retorno.sucesso = true );
         }
         return retorno;
@@ -61,6 +63,26 @@ const SessoesService = {
             await deleteDoc(doc(db, 'sessoes', sessao.id)).then(() => retorno.sucesso = true );
         }
         return retorno;
+    },
+
+    /**
+     * Busca as sessões que o usuário ainda não respondeu.
+     */
+    buscarSessoesAbertas: async(usuario: Paciente) => {
+        console.log('---------------------------------------------')
+        let sessoesAbertas: Sessao[] = [];
+        const sessoes = await SessoesService.buscarSessoes(usuario.coordenadorUID)
+        
+        sessoes.forEach((sessao:Sessao, index) => {
+
+            const pacienteIndex = sessao.dadosPacientes.map(p => p.pacienteUID).indexOf(usuario.uid);
+            //Achou paciente
+            if (pacienteIndex >= 0 && sessao.data <= moment().format('YYYY-MM-DD') && !sessao.dadosPacientes[pacienteIndex].opiniao) {
+                sessoesAbertas.push(sessao);
+            }
+        })
+
+        return sessoesAbertas;
     }
 
 
