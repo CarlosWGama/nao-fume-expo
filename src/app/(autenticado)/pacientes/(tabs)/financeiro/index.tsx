@@ -110,17 +110,18 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
 
                                 {/* OBJETIVO */}
                                 <View style={{flexDirection: 'row', margin: 10, justifyContent: 'space-between'}}>
-                                    <Text style={{fontSize: 12, color: 'grey'}}>Objetivo: R${item.objetivo?.toFixed(2)}</Text>
+                                    <Text style={{fontSize: 14, color: 'grey'}}>Objetivo: R${item.objetivo?.toFixed(2)}</Text>
 
                                     {item.usado && <AppLabel text='REALIZADO!' color={AppColors.success} />}
                                     {!item.usado && item.objetivo <= usuario?.dinheiroDisponivel && <AppLabel text='Pode usar!' color="#7044ff" />}
                                 </View>
 
                                 {/* PROGRESSÃO */}
+                                {!item.usado && 
                                 <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-                                    <Text style={{fontSize: 12, color: 'grey'}}>Progressão: </Text>
+                                    <Text style={{fontSize: 14, color: 'grey'}}>Progressão ({(calcularPorcentagem(item)*100).toFixed(0)}%): </Text>
                                     <Progress.Bar progress={calcularPorcentagem(item)} color={AppColors.danger} borderRadius={10}  height={10} width={200} style={{marginVertical: 10, alignSelf: 'center'}} />
-                                </View>
+                                </View>}
 
                                 {/* BOTÕES */}
                                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -175,7 +176,7 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
 
                                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10}}>
                                     <AppButton title="  Cadastrar  " onPress={handleSubmit} color={AppColors.success} disabled={isSubmitting || !isValid} />
-                                    <AppButton title="Remover" onPress={() => modalRef.current?.close()} color={AppColors.danger}/>
+                                    <AppButton title="  Cancelar  " onPress={() => modalRef.current?.close()} color={AppColors.danger}/>
                                 </View>
                             </View>
                         )}
@@ -221,6 +222,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     input: {
+        padding: 5,
         borderWidth: 1,
         borderColor: 'lightgrey',
         margin: 5

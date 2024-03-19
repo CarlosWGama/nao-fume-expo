@@ -104,7 +104,7 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
                     renderItem={({item, index}) => (
                         <View style={styles.historicoRow} key={""+index}>
                             <View style={styles.tableData}>
-                                <Text style={{fontSize: 10}}>{dataFormat(item.dia)}</Text>
+                                <Text style={{fontSize: 12}}>{dataFormat(item.dia)}</Text>
                             </View>
                             {/* FUMOU? */}
                             <View style={styles.tableData}>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     header: {
         height: 300,
         paddingHorizontal: 20,
-        paddingTop: 30
+        paddingTop: 45
     },
     userTop: {
         width: '100%',
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     },
     tableHeader: {
         fontWeight: 'bold', 
-        fontSize: 10,
+        fontSize: 12,
         flex: 1,
         textAlign: 'center'
     },

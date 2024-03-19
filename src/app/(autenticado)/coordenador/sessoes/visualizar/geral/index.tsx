@@ -64,7 +64,7 @@ export default function SessoesGeralSecreen (props: SessoesGeralSecreenProps) {
                                 renderItem={({item, index}) => (
                                     <>
                                         <AppItemForm label={item.nome}>
-                                            <View style={{alignItems: 'flex-end', flex: 1, marginBottom: -10}}>
+                                            <View style={{alignItems: 'flex-end', flex: 1}}>
                                                 <Switch value={values.pacientes[index].presente} thumbColor={(values.pacientes[index].presente ? AppColors.primary : AppColors.light)} onChange={() => {
                                                     setFieldValue(`pacientes.${index}.presente`, !values.pacientes[index].presente);
                                                 }} />    

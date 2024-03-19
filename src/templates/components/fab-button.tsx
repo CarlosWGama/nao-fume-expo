@@ -23,7 +23,7 @@ export function AppFabButton ({icon, color, position, onPress}: AppFabButtonProp
         <View style={{position: 'absolute', ...positionFab}}>
             <TouchableOpacity onPress={onPress}>
                 <View style={[styles.container, { backgroundColor: color }]}>
-                    <MaterialIcons  name={icon} size={30} color="white"/>
+                    <MaterialIcons name={icon} size={40} color="white"/>
                 </View>
             </TouchableOpacity>
         </View>
@@ -38,8 +38,8 @@ AppFabButton.defaultProps = {
 // =======
 const styles = StyleSheet.create({
     container: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 100,

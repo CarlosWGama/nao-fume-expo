@@ -28,8 +28,8 @@ export default function PacienteTemplate ({title, children, color}: PacienteTemp
                     {/* BTN SAIR */}
                     <TouchableOpacity onPress={handleSair}>
                         <View style={styles.btnSairContainer}>
-                            <MaterialIcons name="exit-to-app" color="white" size={18} />
-                            <Text style={{color:'white', fontSize: 14, fontWeight: 'bold' }}>Sair</Text>
+                            <MaterialIcons name="exit-to-app" color="white" size={22} />
+                            <Text style={{color:'white', fontSize: 18, fontWeight: 'bold' }}>Sair</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     header: {
         paddingHorizontal: 10,
-        paddingTop: 30,
+        paddingTop: 40,
         paddingBottom: 5,
         flexDirection: 'row',
         alignItems: 'center'
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
 
 
     bar : {
-        height: 60,
+        height: 70,
+        paddingBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center'

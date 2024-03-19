@@ -24,7 +24,7 @@ function AppButton ({color, transparent, title, onPress, textColor, disabled, ic
                     borderColor: color}
                 ]}>
                 { icon && <Ionicons name={icon} color={color} />}
-                <Text style={{color:textColor}}>{title}</Text>
+                <Text style={{fontSize: 16, color:textColor}}>{title}</Text>
             </View>
         </TouchableOpacity>
     );

@@ -11,7 +11,7 @@ function AppBackButton (props: AppBackButtonProps) {
 
     return (
         <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="arrow-back" color="white" size={20} />
+            <Ionicons name="arrow-back" color="white" size={30} />
         </TouchableOpacity>
     );
 }

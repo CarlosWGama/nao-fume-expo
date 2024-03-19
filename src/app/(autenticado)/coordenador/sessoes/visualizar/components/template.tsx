@@ -35,12 +35,12 @@ function AppTemplateSessao ({children, title}: AppTemplateSessaoProps) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: AppColors.primary,
-        paddingTop: 30,
+        paddingTop: 45,
         paddingHorizontal: 10
     },
     title: {
         color:'white',
-        fontSize: 18,
+        fontSize: 20,
         marginLeft: 10
     }
 });

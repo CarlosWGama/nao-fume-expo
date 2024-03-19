@@ -41,17 +41,17 @@ function CardPaciente ({paciente, position }: CardPacienteProps) {
 
                     <View style={styles.metrics}>
                         <View>
-                            <Text style={styles.text}>Cigarros evitados</Text>
+                            <Text style={styles.text}>Cigarros {"\n"}evitados</Text>
                             <Text style={styles.text}>{paciente.cigarrosEvitados}</Text>
                         </View>
 
                         <View>
-                            <Text style={styles.text}>Dias sem Fumar</Text>
+                            <Text style={styles.text}>Dias sem {"\n"}Fumar</Text>
                             <Text style={styles.text}>{paciente.diasSemFumar}</Text>
                         </View>
 
                         <View>
-                            <Text style={styles.text}>Max. dias sem fumar</Text>
+                            <Text style={styles.text}>Max. dias {"\n"}sem fumar</Text>
                             <Text style={styles.text}>{paciente.maxDiasSemFumar}</Text>
                         </View>
                     </View>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontSize: 10,
+        fontSize: 12,
         textAlign: 'center'
     },
     metrics: {

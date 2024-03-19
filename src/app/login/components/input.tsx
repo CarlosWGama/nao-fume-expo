@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     label: {
         color: 'white',
-        fontSize: 10
+        fontSize: 14
     },
     input: {
        borderBottomColor: 'white',
