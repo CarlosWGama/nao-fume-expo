@@ -99,7 +99,7 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                     <View style={styles.opcoes}>
                         <ButtonQuestionario 
                             title="Baixo" 
-                            image={require('./../../../../../../assets/imgs/icons/triste.png')} 
+                            image={require('./../../../../../../assets/imgs/icons/feliz.png')} 
                             selected={values.vontadeFumar == 2}
                             onPress={() => setFieldValue('vontadeFumar', 2)} />
 
@@ -111,7 +111,7 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
 
                         <ButtonQuestionario 
                             title="Alto" 
-                            image={require('./../../../../../../assets/imgs/icons/feliz.png')} 
+                            image={require('./../../../../../../assets/imgs/icons/triste.png')} 
                             selected={values.vontadeFumar == 0}
                             onPress={() => setFieldValue('vontadeFumar', 0)} />
                     </View>
