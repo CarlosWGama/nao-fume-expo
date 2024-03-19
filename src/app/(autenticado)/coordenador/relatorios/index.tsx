@@ -28,7 +28,9 @@ export default function Relatorios (props: RelatoriosProps) {
     }
     // ==========================================================================
     const buscarPacientes = async () => {
-      setPacientes(await pacientesService.buscarPacientes());
+      let pacientes = await pacientesService.buscarPacientes();
+      pacientes.sort((p1, p2) => (p1.diasSemFumar > p2.diasSemFumar ? -1 : 1))
+      setPacientes(pacientes);
     }
     // =========
     const carregarGrafico = async () => {
