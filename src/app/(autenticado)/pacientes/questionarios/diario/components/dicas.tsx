@@ -9,7 +9,7 @@ export interface DicasProps {
 function DicasQuestionario (props: DicasProps) {
     const dicas:{img:any, dica:string}[] = [
         {dica: 'Formigamento ou dormencia nos braços e pernas pode ser comum durante a abstinencia, isso ocorre por melhoramento na sua circulação sanguínea.', img: require('./../../../../../../assets/imgs/dicas/dormente.png')},
-        {dica: 'Poderá ser comum sentir-se tonto nos primeiros dias. Isso ocorre porque seu cerebro está recebendo mais oxigêncio. Esses sintomas devem desaprecer com o tempo.', img: require('./../../../../../..//assets/imgs/dicas/tonto.jpg')},
+        {dica: 'Poderá ser comum sentir-se tonto nos primeiros dias. Isso ocorre porque seu cerebro está recebendo mais oxigêncio. Esses sintomas devem desaparecer com o tempo.', img: require('./../../../../../..//assets/imgs/dicas/tonto.jpg')},
         {dica: 'Será comum nos primeiros dias tossir mais do que quando fumava. Isso ocorre devido ao fato dos cílios estarem limpado os brônquios durante o dia.', img: require('./../../../../../..//assets/imgs/dicas/tosse.jpg')},
         {dica: 'Beba muitos copos de água durante o dia. Isso irá ajudar a diminuir o desejo pelo cigarro.', img: require('./../../../../../..//assets/imgs/dicas/agua.jpg')},
         {dica: 'Sempre carregue um lanche. Ter algo para mastigar, alivia a vontade de fumar.', img: require('./../../../../../..//assets/imgs/dicas/mastigar.jpg')},
@@ -18,6 +18,7 @@ function DicasQuestionario (props: DicasProps) {
         {dica: 'Pratique atividades físicas com aumento gradual. Isso ajudará a diminuir o estress, mas lembre-se de procurar um médico antes.', img: require('./../../../../../..//assets/imgs/dicas/exercicio.jpg')},
         {dica: 'Relaxe o corpo e a mente, praticando atividades tranquilas', img: require('./../../../../../..//assets/imgs/dicas/relaxamento.jpg')},
         {dica: 'Seja positivo, use frases como "eu penso...", "eu acredito...", fale com as pessoas olhando nos olhos e com vontade e disposição', img: require('./../../../../../..//assets/imgs/dicas/positivo.jpg')},
+        {dica: 'O apoio decimanentoso pode ser importante para você, solicite informações com seu coordenador de grupo', img: require('./../../../../../..//assets/imgs/dicas/medicamento.png')},
     ];
     // ================================================
     const random = () => {
