@@ -42,7 +42,7 @@ export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
           initialValues={sessao ? sessao : new Sessao()}
           validationSchema={Yup.object({ data: Yup.string().length(10).required() })}
           onSubmit={handleSalvar} >
-          {({handleSubmit, values, setFieldValue, errors, isValid, touched, handleBlur}) => (
+          {({handleSubmit, values, setFieldValue, errors, isValid, touched, handleBlur, isSubmitting}) => (
             <>  
               {/* PROXIMO QUESTIONARIO DIARIO */}
               <AppItemForm label="Data da sessão" error={errors.data && touched.data}>
@@ -57,7 +57,7 @@ export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
                   mask={Masks.DATE_DDMMYYYY	}/>
               </AppItemForm>   
               
-              <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid}/>
+              <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid} loading={isSubmitting}/>
             </>
           )}
         </Formik>

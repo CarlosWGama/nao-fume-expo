@@ -29,12 +29,12 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                 humor: Yup.number().required(),
                 vontadeFumar: Yup.number().required(),
             })}
-            onSubmit={(dados, { resetForm  }) => {
-                doAvancar(dados)
+            onSubmit={async (dados, { resetForm  }) => {
+                await doAvancar(dados)
                 resetForm();
             }}
          >
-            {({ values, isValid, setFieldValue, handleSubmit }) => (
+            {({ values, isValid, setFieldValue, handleSubmit, isSubmitting }) => (
                 <>
                     {/* FUMOU? */}
                     <Text style={styles.h2}>Fumou nesse dia?</Text>
@@ -117,7 +117,7 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                     </View>
 
                     {/* SALVAR */}
-                    <AppButton title='SALVAR' onPress={handleSubmit} disabled={!isValid} />
+                    <AppButton title='SALVAR' onPress={handleSubmit} disabled={!isValid} loading={isSubmitting} />
                     <Text style={{textAlign: 'center', fontSize: 20, margin: 10}}>OU</Text>
                     <AppButton title='RESPONDER MAIS TARDE' onPress={() => router.replace('/pacientes/perfil')} transparent textColor={AppColors.primary} />
                 </>

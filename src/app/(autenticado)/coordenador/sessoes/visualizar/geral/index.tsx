@@ -51,14 +51,14 @@ export default function SessoesGeralSecreen (props: SessoesGeralSecreenProps) {
     // ========================================================================
     return (
         <AppTemplateSessao title='Geral'>
-            <View>
+            <View style={{flex: 1}}>
                 <Text style={styles.title}>Pacientes presentes {sessao?.dadosPacientes.length}</Text>
 
                 <Formik
                     initialValues={{pacientes: sessao.dadosPacientes}}
                     onSubmit={handleSalvar}>
                     {({values, handleSubmit, isSubmitting, setFieldValue}) => (
-                        <>
+                        <View style={{flex: 1}}>
                             <FlatList
                                 data={values.pacientes}
                                 renderItem={({item, index}) => (
@@ -85,8 +85,8 @@ export default function SessoesGeralSecreen (props: SessoesGeralSecreenProps) {
                                     </>
                                 )}/>
 
-                            <AppButton title="Salvar" onPress={handleSubmit} disabled={isSubmitting} />
-                        </>
+                            <AppButton title="Salvar" onPress={handleSubmit} loading={isSubmitting} />
+                        </View>
                     )}
                 </Formik>
             </View>

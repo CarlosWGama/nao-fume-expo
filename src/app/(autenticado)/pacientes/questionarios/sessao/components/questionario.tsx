@@ -41,12 +41,12 @@ function FormularioQuestionarioSessao ({ sessao, doAvancar }: FormularioQuestion
               
                 return errors;
             }}
-            onSubmit={(dados, { resetForm  }) => {
-                doAvancar(dados)
+            onSubmit={async (dados, { resetForm  }) => {
+                await doAvancar(dados)
                 resetForm();
             }}
          >
-            {({ values, isValid, setFieldValue, handleSubmit }) => (
+            {({ values, isValid, setFieldValue, handleSubmit, isSubmitting }) => (
                 <>
                     {/* PARTICIPOU? */}
                     {sessao.dadosPacientes[index].presente &&
@@ -111,7 +111,7 @@ function FormularioQuestionarioSessao ({ sessao, doAvancar }: FormularioQuestion
 
               
                     {/* SALVAR */}
-                    <AppButton title='SALVAR' onPress={handleSubmit} disabled={!isValid} />
+                    <AppButton title='SALVAR' onPress={handleSubmit} disabled={!isValid} loading={isSubmitting} />
                 </>
             )}
          </Formik>

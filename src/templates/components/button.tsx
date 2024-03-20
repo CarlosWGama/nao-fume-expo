@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { AppColors } from '../colors';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,21 +10,23 @@ export interface AppButtonProps {
     title: string;
     onPress():void;
     disabled?: boolean;
+    loading?: boolean;
     icon?: string
 }
 
-function AppButton ({color, transparent, title, onPress, textColor, disabled, icon}: AppButtonProps) {
+function AppButton ({color, transparent, title, onPress, textColor, disabled, loading, icon}: AppButtonProps) {
     return (
-        <TouchableOpacity onPress={disabled ? () => {} : onPress}>
+        <TouchableOpacity onPress={disabled || loading ? () => {} : onPress}>
             <View style={[styles.container, 
                 {
                     backgroundColor: (transparent ? 'transparent' : color),
                     elevation: (transparent ? 0 : 1),
-                    opacity: ( disabled? 0.4 : 1),
+                    opacity: ( disabled || loading? 0.4 : 1),
                     borderColor: color}
                 ]}>
                 { icon && <Ionicons name={icon} color={color} />}
-                <Text style={{fontSize: 16, color:textColor}}>{title}</Text>
+                { !loading && <Text style={{fontSize: 16, color:textColor}}>{title}</Text> }
+                { loading && <ActivityIndicator color={textColor} size={16} />}
             </View>
         </TouchableOpacity>
     );

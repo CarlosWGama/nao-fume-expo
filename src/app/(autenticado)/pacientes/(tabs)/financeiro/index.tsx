@@ -175,7 +175,7 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
                                 { touched.objetivo && errors.objetivo && <Text style={styles.error}>{errors.objetivo}</Text>}
 
                                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10}}>
-                                    <AppButton title="  Cadastrar  " onPress={handleSubmit} color={AppColors.success} disabled={isSubmitting || !isValid} />
+                                    <AppButton title="  Cadastrar  " onPress={handleSubmit} color={AppColors.success} disabled={!isValid} loading={isSubmitting} />
                                     <AppButton title="  Cancelar  " onPress={() => modalRef.current?.close()} color={AppColors.danger}/>
                                 </View>
                             </View>

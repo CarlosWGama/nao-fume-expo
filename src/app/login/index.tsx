@@ -57,7 +57,7 @@ export default function LoginScreen (props) {
 
                   {erro && <Text style={styles.textError}>{erro}</Text>}
 
-                  <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' disabled={isSubmitting} />
+                  <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' loading={isSubmitting} />
               </View>
             )}
           </Formik>

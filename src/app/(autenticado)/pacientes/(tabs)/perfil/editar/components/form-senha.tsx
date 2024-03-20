@@ -36,7 +36,7 @@ export function FormSenha (props: FormSenhaProps) {
                         onBlur={handleBlur('senha')} />
 
                 </AppItemForm>
-                <AppButton title='Salvar nova senha' disabled={isSubmitting || !isValid} onPress={handleSubmit}/>
+                <AppButton title='Salvar nova senha' disabled={!isValid} loading={isSubmitting} onPress={handleSubmit}/>
             </>
         )}
     </Formik>

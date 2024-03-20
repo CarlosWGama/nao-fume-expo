@@ -82,7 +82,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
                                     />
                         </AppItemForm>
                         <Image source={avatarURL(values.avatar)} style={styles.avatar}/>
-                        <AppButton title='Alterar dados' disabled={isSubmitting || !isValid} onPress={handleSubmit}/>
+                        <AppButton title='Alterar dados' disabled={!isValid} loading={isSubmitting} onPress={handleSubmit}/>
                     </>
                 )}
             </Formik>

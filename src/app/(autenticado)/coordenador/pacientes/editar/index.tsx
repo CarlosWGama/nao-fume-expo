@@ -58,7 +58,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
           })}
           onSubmit={handleSalvar}
         >
-          {({handleSubmit, values, handleChange, setFieldValue, errors, isValid, touched, handleBlur}) => (
+          {({handleSubmit, values, handleChange, setFieldValue, errors, isValid, isSubmitting, touched, handleBlur}) => (
             <>  
               {/* NOME */}
               <AppItemForm label="Nome" error={errors.nome && touched.nome}>
@@ -115,7 +115,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
               </AppItemForm>
               
               
-              <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid}/>
+              <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid} loading={isSubmitting}/>
             </>
           )}
         </Formik>

@@ -33,7 +33,7 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
       }
     }
     // --------
-    const responderDia = (questionario: Questionario) => {
+    const responderDia = async (questionario: Questionario) => {
         console.log(questionario);
         const novosDados = {...usuario} as Paciente;
 
@@ -60,7 +60,7 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
         console.log(novosDados);
         //Após responder tudo, salva as modificações
         if ((diaAtual + 1) >= dias.length) {
-          pacientesSrv.atualizar(novosDados);
+          await pacientesSrv.atualizar(novosDados);
         }  
 
     }
