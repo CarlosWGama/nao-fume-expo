@@ -4,16 +4,22 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 export interface InputProps {
     label: string
     onChangeText(text:string): void
-    password?: boolean
+    password?: boolean;
+    keyboardType?: 'default'|'number-pad';
 }
 
-export default function AppInput ({label, password, onChangeText}: InputProps) {
+export default function AppInput ({label, password, onChangeText, keyboardType}: InputProps) {
     return (
       <View style={styles.container}>
          <Text style={styles.label}>{label}</Text>
-         <TextInput style={styles.input} secureTextEntry={password} onChangeText={onChangeText}/>
+         <TextInput style={styles.input} secureTextEntry={password} onChangeText={onChangeText} keyboardType={keyboardType}/>
       </View>
     );
+}
+
+AppInput.defaultProps = {
+    keyboardType:'default',
+    password: false
 }
 
 const styles = StyleSheet.create({

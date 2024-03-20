@@ -16,6 +16,8 @@ export default function Initial (props) {
     useEffect(() => {
         //Redireciona para tela de login
         (async () => {
+            await new Promise(resolve => setTimeout(resolve, 5000));
+
             auth.onAuthStateChanged(async (user) => {
                 if (!user) 
                     router.replace('/login')
@@ -46,7 +48,12 @@ export default function Initial (props) {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: AppColors.lightgrey}}>
          <Text style={{fontSize: 20, margin: 10}}>{AppConfig.nome}</Text>
          <Text>{AppConfig.versao}</Text>
-         <Text>{AppConfig.autor}</Text>
+         <Text>Seli</Text>
+         <Text>Sonia Ferreira</Text>
+         <Text>Carlos W. Gama</Text>
+         <Text>Robysson</Text>
+         <Text>Evanisa</Text>
+         <Text>Letícia</Text>
       </View>
     );
 }

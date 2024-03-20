@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { AppHeaderButton } from './components';
 import { auth } from '../config/firebase';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export interface PacienteTemplateProps {
     title: string;
@@ -38,9 +39,12 @@ export default function PacienteTemplate ({title, children, color}: PacienteTemp
                 </View>
 
             {/* MAIN */}
-            <View style={{flex: 1}}>
-                {children}
-            </View>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{flex: 1}}
+                >
+                    {children}
+            </KeyboardAvoidingView>
 
             {/* TAB BAR */}
             <View style={[styles.bar, { backgroundColor: color}]}>

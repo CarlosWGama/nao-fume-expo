@@ -1,13 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Formik } from 'formik';
 import * as React from 'react';
-import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { AppInput } from './components';
 import { AppButton } from '../../templates/components';
 import { router } from 'expo-router';
 import { usePacienteContext } from '../../contexts/paciente-context';
 import { Paciente } from '../../models/paciente';
 import { useUsuariosService } from '../../services/usuarios.service';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function LoginScreen (props) {
 
@@ -38,35 +39,40 @@ export default function LoginScreen (props) {
     } 
     // =========================================================================
     return (
+      
+      
       <LinearGradient
         colors={['#2af598', '#009efd']}
-        style={styles.container}
+        style={{flex: 1}}
       >
-          {/* LOGO */}
-          <Image source={require('./../../assets/imgs/logo.png')} style={styles.logo}/>
 
-          {/* FORM */}
-          <Formik
-            initialValues={{codigo: '', senha: ''}}
-            onSubmit={handleLogin} >
-            {({handleChange, handleSubmit, isSubmitting}) => (
-              <View style={styles.form}>
-                  <Text style={[styles.text, {textAlign: 'center', fontSize: 20}]}>Acesse</Text>
-                  <AppInput label="Código" onChangeText={handleChange('codigo')}/>
-                  <AppInput label="Senha" onChangeText={handleChange('senha')} password/>
+        <KeyboardAwareScrollView style={{flex: 1}} >
+            <ScrollView automaticallyAdjustKeyboardInsets={true} style={{flex: 1}} contentContainerStyle={styles.container}>
+              {/* LOGO */}
+              <Image source={require('./../../assets/imgs/logo.png')} style={styles.logo}/>
 
-                  {erro && <Text style={styles.textError}>{erro}</Text>}
+              {/* FORM */}
+              <Formik
+                initialValues={{codigo: '', senha: ''}}
+                onSubmit={handleLogin} >
+                {({handleChange, handleSubmit, isSubmitting}) => (
+                  <View style={styles.form}>
+                      <Text style={[styles.text, {textAlign: 'center', fontSize: 20}]}>Acesse</Text>
+                      <AppInput label="Código" onChangeText={handleChange('codigo')} keyboardType='number-pad'/>
+                      <AppInput label="Senha" onChangeText={handleChange('senha')} password/>
 
-                  <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' loading={isSubmitting} />
-              </View>
-            )}
-          </Formik>
+                      {erro && <Text style={styles.textError}>{erro}</Text>}
 
-          {/* FOOTER */}
-          <Text style={[styles.text, {fontSize: 20}]}>CESMAC</Text>
-          <Text style={styles.text}>Centro de Inovação Tecnologia</Text>
-          <Text style={styles.text}>Carlos W. Gama</Text>
-            
+                      <AppButton title="ACESSAR" onPress={handleSubmit} transparent color='white' loading={isSubmitting} />
+                  </View>
+                )}
+              </Formik>
+
+              {/* FOOTER */}
+              <Text style={[styles.text, {fontSize: 20}]}>CESMAC</Text>
+
+            </ScrollView>
+        </KeyboardAwareScrollView>
       </LinearGradient>
     );
 }
