@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Paciente } from '../../../../models/paciente';
 import { CardPaciente } from './components';
 import { AppFabButton } from '../../../../templates/components/fab-button';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useCoordenadorContext } from '../../../../contexts/coordenador-context';
 import { usePacientesService } from '../../../../services/pacientes.service';
 
@@ -27,9 +27,9 @@ export default function Pacientes (props: PacientesProps) {
       router.push('/coordenador/pacientes/editar');
     }
     // =========
-    useEffect(() => {
+    useFocusEffect(() => {
       buscarPacientes();
-    }, [])
+    })
     // ==========================================================================
     return (
       <CoordenadorTemplate title='Pacientes'>
