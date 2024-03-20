@@ -18,6 +18,8 @@ const SessoesService = {
             sessoes.push(snapshot.data() as Sessao);
         })
 
+        sessoes.sort((s1, s2) => (s1.data < s2.data ? -1 : 1))
+
         return sessoes;
     },
 
