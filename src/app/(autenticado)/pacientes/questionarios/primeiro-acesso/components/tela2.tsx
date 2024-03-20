@@ -2,12 +2,14 @@ import * as React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { AppButton } from '../../../../../../templates/components';
 import ItemPrimeiroAcesso from './item';
+import * as Speech from 'expo-speech';
 
 export interface PrimeiroAcessoTela1Props {
   onAvancar(pergunta: {pergunta: string, selecionado: number}[]): any;
 }
 
 function PrimeiroAcessoTela2 ({onAvancar}: PrimeiroAcessoTela1Props) {
+
     const [ perguntas, setPerguntas ] = React.useState<{pergunta: string, selecionado: number}[]>([
       {pergunta:'É muito difícil para você ficar 12 horas sem fumar?', selecionado:0},
       {pergunta:'Você tem um desejo intensivo e compulsivo ("fissura") por cigarro?', selecionado:0},
@@ -27,6 +29,15 @@ function PrimeiroAcessoTela2 ({onAvancar}: PrimeiroAcessoTela1Props) {
       setPerguntas(novaResposta)
       setIsValid(novaResposta.map(r => r.selecionado).includes(0))
     }
+    // -----------
+    React.useEffect(() => {
+      const msg = 'Responda o questionário abaixo. Para saber o que cada pergunta fala, clique no texto.';
+      Speech.speak(msg, { language: 'pt' });
+    }, [])
+    // -----------
+    React.useEffect(() => () => {
+      Speech.stop();
+    }, [])
     // ========================================================================
     return (
       <View style={styles.container}>

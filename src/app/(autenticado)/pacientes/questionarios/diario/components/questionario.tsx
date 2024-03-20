@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Questionario } from '../../../../../../models/questionario';
 import { dataFormat } from '../../../../../../helpers/general';
 import { Formik } from 'formik';
@@ -9,6 +9,7 @@ import { router } from 'expo-router';
 import { AppColors } from '../../../../../../templates/colors';
 import * as Yup from 'yup';
 import { TextInput } from 'react-native-gesture-handler';
+import * as Speech from 'expo-speech';
 
 export interface FormularioQuestionarioDiarioProps {
     dia: string;
@@ -16,6 +17,15 @@ export interface FormularioQuestionarioDiarioProps {
 }
 
 function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionarioDiarioProps) {
+    React.useEffect(() => {
+        const msg = `Questionário diário do dia ${dataFormat(dia)}. Clique nas perguntas para saber o que se trata e por fim no botão azul para salvar ou no ultimo botão para responder em outro momento.`
+        Speech.speak(msg, { language: 'pt' });
+      }, []) 
+    // -------
+    //Ao destroir o objeto
+    React.useEffect(() => () => {
+        Speech.stop();
+      }, []) 
     // ======================================================
     return (
       <View style={styles.container}>
@@ -37,7 +47,10 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
             {({ values, isValid, setFieldValue, handleSubmit, isSubmitting }) => (
                 <>
                     {/* FUMOU? */}
-                    <Text style={styles.h2}>Fumou nesse dia?</Text>
+                    <TouchableOpacity onPress={() => Speech.speak('Fumou nesse dia? Caso sim, também informe a quantidade fumada', { language: 'pt' })}>
+                        <Text style={styles.h2}>Fumou nesse dia?</Text>
+                    </TouchableOpacity>
+
                     <View style={styles.opcoes}>
                         <ButtonQuestionario 
                             title="Sim" 
@@ -58,7 +71,10 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                     </AppItemForm>}
 
                     {/* EXERCICIO */}
+                    <TouchableOpacity onPress={() => Speech.speak('Realizou algum exercício físico?', { language: 'pt' })}>
                     <Text style={styles.h2}>Realizou algum exercício físico?</Text>
+                    </TouchableOpacity>
+
                     <View style={styles.opcoes}>
                         <ButtonQuestionario 
                             title="Sim" 
@@ -73,7 +89,9 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                     </View>
 
                     {/* HUMOR */}
+                    <TouchableOpacity onPress={() => Speech.speak('Como foi seu humor?', { language: 'pt' })}>
                     <Text style={styles.h2}>Como foi seu humor?</Text>
+                    </TouchableOpacity>
                     <View style={styles.opcoes}>
                         <ButtonQuestionario 
                             title="Baixo" 
@@ -95,7 +113,10 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                     </View>
 
                     {/* VONTADE */}
-                    <Text style={styles.h2}>Como foi sua vontade de fuma?</Text>
+                    <TouchableOpacity onPress={() => Speech.speak('Como foi sua vontade de fumar?', { language: 'pt' })}>
+                    <Text style={styles.h2}>Como foi sua vontade de fumar?</Text>
+                    </TouchableOpacity>
+
                     <View style={styles.opcoes}>
                         <ButtonQuestionario 
                             title="Baixo" 

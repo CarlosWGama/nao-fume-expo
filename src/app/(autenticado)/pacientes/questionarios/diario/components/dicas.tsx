@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { AppButton } from '../../../../../../templates/components';
 import { router } from 'expo-router';
+import * as Speech from 'expo-speech';
 
 export interface DicasProps {
 }
@@ -18,7 +19,7 @@ function DicasQuestionario (props: DicasProps) {
         {dica: 'Pratique atividades físicas com aumento gradual. Isso ajudará a diminuir o estress, mas lembre-se de procurar um médico antes.', img: require('./../../../../../..//assets/imgs/dicas/exercicio.jpg')},
         {dica: 'Relaxe o corpo e a mente, praticando atividades tranquilas', img: require('./../../../../../..//assets/imgs/dicas/relaxamento.jpg')},
         {dica: 'Seja positivo, use frases como "eu penso...", "eu acredito...", fale com as pessoas olhando nos olhos e com vontade e disposição', img: require('./../../../../../..//assets/imgs/dicas/positivo.jpg')},
-        {dica: 'O apoio decimanentoso pode ser importante para você, solicite informações com seu coordenador de grupo', img: require('./../../../../../..//assets/imgs/dicas/medicamento.png')},
+        {dica: 'O apoio medicamentoso pode ser importante para você, solicite informações com seu coordenador de grupo', img: require('./../../../../../..//assets/imgs/dicas/medicamento.png')},
     ];
     // ================================================
     const random = () => {
@@ -27,6 +28,14 @@ function DicasQuestionario (props: DicasProps) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     const index = random();
+    // --------------
+    React.useEffect(() => {
+        Speech.speak(`Dica do dia: ${dicas[index].dica}`, { language: 'pt' });
+    }, [])
+    // -------------- 
+    React.useEffect(() => () => {
+        Speech.stop()
+    }, [])
     // ================================================
     return (
       <View style={styles.container}>

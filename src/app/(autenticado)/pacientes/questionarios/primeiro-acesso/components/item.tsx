@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as Speech from 'expo-speech';
 
 export interface ItemPrimeiroAcessoProps {
     posicao: number,
@@ -9,13 +10,23 @@ export interface ItemPrimeiroAcessoProps {
 }
 
 function ItemPrimeiroAcesso ({posicao, pergunta, onSelect}: ItemPrimeiroAcessoProps) {
+
+    const speak = () => {
+      Speech.speak(pergunta.pergunta, { language: 'pt' });
+    }
+    // ===================================================================================
     return (
       <View style={styles.container}>
         {/* PERGUNTA */}
-        <Text style={styles.pergunta}>
-            <Text style={{fontWeight: 'bold'}}>{posicao}. </Text>
-            <Text>{pergunta.pergunta}</Text>
-        </Text>
+        <View style={{flex: 1, marginRight: 5}}>
+            <TouchableOpacity onPress={speak} >
+
+                <Text style={styles.pergunta}>
+                    <Text style={{fontWeight: 'bold'}}>{posicao}. </Text>
+                    <Text>{pergunta.pergunta}</Text>
+                </Text>
+            </TouchableOpacity>
+        </View>
 
         {/* OPCOES */}
         <View style={styles.respostas}>
@@ -45,10 +56,8 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     pergunta: {
-        flex: 1,
         fontSize: 16,
         textAlign:'justify',
-        marginRight: 5
     },
     respostas: {
         flex: 1,

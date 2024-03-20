@@ -6,6 +6,7 @@ import { FormularioSessoes } from './components';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Sessao } from '../../../../../models/sessao';
 import { useSessoesService } from '../../../../../services/sessoes.service';
+import * as Speech from 'expo-speech';
 
 export interface QuestionarioDiarioScreenProps {
 }
@@ -44,7 +45,12 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
     // --------
     React.useEffect(() => {
       buscarSessoes();
+      Speech.speak('Responda o que achou ou o motivo de ter faltado a sessão de acompanhamento.', { language: 'pt' })
     }, [])
+    // --------
+    React.useEffect(() => () => {
+      Speech.stop()
+    }, []) 
     // ===============================================================
     return (
       <View style={styles.container}>
