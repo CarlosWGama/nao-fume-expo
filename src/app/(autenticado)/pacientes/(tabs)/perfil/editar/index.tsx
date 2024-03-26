@@ -11,6 +11,8 @@ import { Paciente, avatarURL } from '../../../../../../models/paciente';
 import Toast from 'react-native-root-toast';
 import { usePacientesService } from '../../../../../../services/pacientes.service';
 import * as Yup from 'yup';
+import { AppHeader } from '../../../../../../templates/components/header';
+import { AppColors } from '../../../../../../templates/colors';
 
 export interface PacienteEditarScreenProps {
 }
@@ -34,6 +36,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
     // ====================================================================================
     return (
       <ScrollView style={styles.container}>
+            <AppHeader title="Editando Conta" back backgroundColor={AppColors.warning}/>
             {/* -------- SENHA ---------- */}
             <Text style={styles.h1}>Acesso</Text>
             <FormSenha />
@@ -92,7 +95,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 10, 
+        paddingBottom: 10, 
         flex: 1,
         backgroundColor: 'white'
     },

@@ -52,13 +52,13 @@ export default function SessoesGeralSecreen (props: SessoesGeralSecreenProps) {
     return (
         <AppTemplateSessao title='Geral'>
             <View style={{flex: 1}}>
-                <Text style={styles.title}>Pacientes presentes {sessao?.dadosPacientes.length}</Text>
+                <Text style={styles.title}>{sessao?.dadosPacientes.length} Paciente(s)</Text>
 
                 <Formik
                     initialValues={{pacientes: sessao.dadosPacientes}}
                     onSubmit={handleSalvar}>
                     {({values, handleSubmit, isSubmitting, setFieldValue}) => (
-                        <View style={{flex: 1}}>
+                        <View style={{flex: 1, paddingBottom: 20}}>
                             <FlatList
                                 data={values.pacientes}
                                 renderItem={({item, index}) => (

@@ -82,7 +82,7 @@ export default function Relatorios (props: RelatoriosProps) {
               showValuesOnTopOfBars={true}
               withHorizontalLabels ={false}
               data={{
-                labels: info.map(s => s.data.split('-').reverse().join('/')),
+                labels: info.map((s, index) => ""+(index+1)),
                 datasets: [
                   {
                     data: info.map(s => s.total),
@@ -98,7 +98,7 @@ export default function Relatorios (props: RelatoriosProps) {
             <Text style={{fontSize: 18, color: AppColors.primary}}>Situação dos pacientes</Text>
             {info.length > 0 && <StackedBarChart
                   data={{
-                    labels: info.map(s => s.data.split('-').reverse().join('/')),
+                    labels: info.map((s, index) => ""+(index+1)),
                     legend: ["Abstinente", "Fumando", "Manutenção"],
                     data: info.map(s => [s.naoFumou, s.fumou, s.manutencao]),
                     barColors: [AppColors.success, AppColors.danger, AppColors.warning]

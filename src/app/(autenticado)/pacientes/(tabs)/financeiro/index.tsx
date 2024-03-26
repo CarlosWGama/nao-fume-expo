@@ -164,13 +164,13 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
                                 { touched.titulo && errors.titulo && <Text style={styles.error}>{errors.titulo}</Text>}
 
                                 <MaskInput 
-                                    value={""+values.objetivo}
+                                    value={""+Number(values.objetivo).toFixed(2)}
                                     onChangeText={handleChange('objetivo')} 
                                     placeholder='O valor da meta' 
                                     style={styles.input} 
                                     onBlur={handleBlur('objetivo')} 
                                     keyboardType='decimal-pad'
-                                    mask={createNumberMask({precision: 2, separator: '.'})	}
+                                    mask={createNumberMask({precision: 2, separator: '.', delimiter: ''})	}
                                     />
                                 { touched.objetivo && errors.objetivo && <Text style={styles.error}>{errors.objetivo}</Text>}
 

@@ -15,7 +15,7 @@ function PrimeiroAcessoTela3 ({onAvancar, resultado}: PrimeiroAcessoTela3Props) 
       msg += 'Vejo que o cigarro para você não é uma dependência muito forte. Mas ainda sim, devemos parar para cuidar da sua saúde.';
       msg += resultado.join(',') + '.';
       msg += 'Caso você não consiga realizar uma parada abrupta, pode optar uma parada gradual.'
-      msg += 'A parada gradual consistema em ir diminuindo os cigarros consumidos no dia aos poucos:'
+      msg += 'A parada gradual consistem  em ir diminuindo os cigarros consumidos no dia aos poucos:'
       msg += '30 no primeiro dia, 25 no segundo dia, 20 no terceiro dia, 15 no quarto dia até encerrar...'
       msg += 'A parada gradual também pode ser baseada no adiamento, demorando mais tempo entre um cigarro e outro, ou a hora em que começa a fumar:'
       msg += 'Começa as 9 horas no primeiro dia, 11 horas no segundo dia, 13 horas no terceiro dia, começando as 15 horas no quarto dia. Até encerrar...'
@@ -39,7 +39,7 @@ function PrimeiroAcessoTela3 ({onAvancar, resultado}: PrimeiroAcessoTela3Props) 
           <View style={{marginBottom:20}}/>
 
           <Text style={styles.description}>Caso você não consiga realizar uma parada abrupta, pode optar uma parada gradual.</Text>
-          <Text style={styles.description}>A parada gradual consistema em ir diminuindo os cigarros consumidos no dia aos poucos:</Text>
+          <Text style={styles.description}>A parada gradual consistea em ir diminuindo os cigarros consumidos no dia aos poucos:</Text>
           <View style={{paddingHorizontal: 10}}>
             <Text style={styles.description}>- 30 no primeiro dia</Text>
             <Text style={styles.description}>- 25 no segundo dia</Text>

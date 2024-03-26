@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
-import { AppButton, AppItemForm } from '../../../../../templates/components';
+import { AppButton, AppHeader, AppItemForm } from '../../../../../templates/components';
 import { useCoordenadorContext } from '../../../../../contexts/coordenador-context';
 import { AppColors } from '../../../../../templates/colors';
 import { Formik } from 'formik';
@@ -47,6 +47,8 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
     // ==============================================================
     return (
       <View style={{flex:1}}>
+        <AppHeader title={paciente ? 'Editar Paciente' : 'Cadastrar Paciente'} back/>
+
         <Formik
           initialValues={paciente ? paciente : new Paciente()}
           validationSchema={Yup.object({
@@ -106,12 +108,12 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
               {/* PREÇO CIGARRO */}
               <AppItemForm label="Preço do cigarro" error={errors.precoCigarro && touched.precoCigarro}>
                 <MaskInput style={{flex:1, marginLeft: 10}} 
-                  value={""+values.precoCigarro.toFixed(2)}  
+                  value={""+Number(values.precoCigarro).toFixed(2)}  
                   onChangeText={handleChange('precoCigarro')} 
                   onBlur={handleBlur('precoCigarro')}
                   placeholder='Valor em reais' 
                   keyboardType='decimal-pad'
-                  mask={createNumberMask({precision: 2, separator: '.'})	}/>
+                  mask={createNumberMask({precision: 2, separator: '.', delimiter: ''})	}/>
               </AppItemForm>
               
               

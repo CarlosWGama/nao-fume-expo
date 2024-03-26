@@ -20,11 +20,11 @@ export default function PrimeiroAcessoScreen (props: PrimeiroAcessoScreenProps) 
     const responder = (perguntas) => {
       const resultado: string[] = []
       if (perguntas[0].selecionado || perguntas[1].selecionado || perguntas[2].selecionado)
-        resultado.push('Percebo que você está fisicamente dependente do cigarro');
+        resultado.push('- Percebo que você está fisicamente dependente do cigarro.');
       if (perguntas[3].selecionado || perguntas[4].selecionado || perguntas[5].selecionado)
-        resultado.push('Vejo que está fazendo associações de comportamento envolvendo o ato de fumar');
+        resultado.push('- Vejo que está fazendo associações de comportamento envolvendo o ato de fumar.');
       if (perguntas[6].selecionado || perguntas[7].selecionado || perguntas[8].selecionado)
-        resultado.push('Você está psicologicamente dependente do cigarro');
+        resultado.push('- Você está psicologicamente dependente do cigarro.');
       setResultado(resultado);
       setTela(3);
     }

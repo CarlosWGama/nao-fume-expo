@@ -11,6 +11,7 @@ import Toast from 'react-native-root-toast';
 import * as Yup from 'yup';
 import { router } from 'expo-router';
 import { useSessoesService } from '../../../../../services/sessoes.service';
+import { AppHeader } from '../../../../../templates/components';
 
 
 export interface SessaoEditarScreenProps {
@@ -38,6 +39,7 @@ export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
     // ==============================================================
     return (
       <View style={{flex:1}}>
+        <AppHeader title={sessao ? 'Editar Sessão' : 'Cadastrar Sessão'} back/>
         <Formik
           initialValues={sessao ? sessao : new Sessao()}
           validationSchema={Yup.object({ data: Yup.string().length(10).required() })}
