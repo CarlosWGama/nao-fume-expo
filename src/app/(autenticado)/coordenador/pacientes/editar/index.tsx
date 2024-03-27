@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { AppButton, AppHeader, AppItemForm } from '../../../../../templates/components';
 import { useCoordenadorContext } from '../../../../../contexts/coordenador-context';
 import { AppColors } from '../../../../../templates/colors';
@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import { usePacientesService } from '../../../../../services/pacientes.service';
 import { router } from 'expo-router';
 import { RadioGroup } from 'react-native-radio-buttons-group';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export interface PacienteEditarScreenProps {
@@ -108,6 +109,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
                   placeholder='Dia/Mês/Ano' 
                   keyboardType='decimal-pad'
                   mask={Masks.DATE_DDMMYYYY	}/>
+                  <Button title="X" onPress={() => setFieldValue('ultimoDiaRespondido', '')} />
               </AppItemForm>
 
               {/* CIGARROS */}
@@ -129,6 +131,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
                   placeholder='Valor em reais' 
                   keyboardType='decimal-pad'
                   mask={createNumberMask({precision: 2, separator: '.', delimiter: ''})	}/>
+                  <Button title="X" onPress={() => setFieldValue('precoCigarro', '0')} />
               </AppItemForm>
               
               

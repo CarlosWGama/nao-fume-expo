@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { Button, View } from 'react-native';
 import { AppButton, AppItemForm } from '../../../../../templates/components';
 import { useCoordenadorContext } from '../../../../../contexts/coordenador-context';
 import { AppColors } from '../../../../../templates/colors';
@@ -57,6 +57,7 @@ export default function SessaoEditarScreen (props: SessaoEditarScreenProps) {
                   placeholder='Dia/Mês/Ano' 
                   keyboardType='decimal-pad'
                   mask={Masks.DATE_DDMMYYYY	}/>
+                  <Button title="X" onPress={() => setFieldValue('data', '')} />
               </AppItemForm>   
               
               <AppButton onPress={handleSubmit} title='SALVAR' color={AppColors.success} disabled={!isValid} loading={isSubmitting}/>

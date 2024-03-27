@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, Button } from 'react-native';
 import PacienteTemplate from '../../../../../templates/template-paciente';
 import { AppColors } from '../../../../../templates/colors';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -156,22 +156,25 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
                         })}
                         onSubmit={handleCadastrar}
                     >
-                        {({values, touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting, isValid}) => (
+                        {({values, touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting, isValid, setFieldValue}) => (
                             <View>
                                 <Text style={{fontSize: 25, textAlign: 'center'}}>Cadastrar nova meta</Text>
                                 
                                 <TextInput onChangeText={handleChange('titulo')} placeholder='Digite o nome da meta' style={styles.input} onBlur={handleBlur('titulo')}/>
                                 { touched.titulo && errors.titulo && <Text style={styles.error}>{errors.titulo}</Text>}
 
-                                <MaskInput 
-                                    value={""+Number(values.objetivo).toFixed(2)}
-                                    onChangeText={handleChange('objetivo')} 
-                                    placeholder='O valor da meta' 
-                                    style={styles.input} 
-                                    onBlur={handleBlur('objetivo')} 
-                                    keyboardType='decimal-pad'
-                                    mask={createNumberMask({precision: 2, separator: '.', delimiter: ''})	}
-                                    />
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <MaskInput 
+                                        value={""+Number(values.objetivo).toFixed(2)}
+                                        onChangeText={handleChange('objetivo')} 
+                                        placeholder='O valor da meta' 
+                                        style={styles.input} 
+                                        onBlur={handleBlur('objetivo')} 
+                                        keyboardType='decimal-pad'
+                                        mask={createNumberMask({precision: 2, separator: '.', delimiter: ''})	}
+                                        />
+                                    <Button title="X" onPress={() => setFieldValue('objetivo', '')} />
+                                </View>
                                 { touched.objetivo && errors.objetivo && <Text style={styles.error}>{errors.objetivo}</Text>}
 
                                 <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10}}>
