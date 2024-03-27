@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { AppColors } from '../colors';
-import { AppBackButton } from '.';
+import AppBackButton from './back-button';
 
 export interface AppHeaderProps {
     backgroundColor?: string;

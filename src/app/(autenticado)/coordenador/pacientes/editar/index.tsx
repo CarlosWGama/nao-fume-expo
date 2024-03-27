@@ -11,6 +11,7 @@ import Toast from 'react-native-root-toast';
 import * as Yup from 'yup';
 import { usePacientesService } from '../../../../../services/pacientes.service';
 import { router } from 'expo-router';
+import { RadioGroup } from 'react-native-radio-buttons-group';
 
 
 export interface PacienteEditarScreenProps {
@@ -19,10 +20,11 @@ export interface PacienteEditarScreenProps {
 export default function PacienteEditarScreen (props: PacienteEditarScreenProps) {
 
     const { paciente } = useCoordenadorContext();
+    
     const pacientesSrv = usePacientesService();
     // ==============================================================
     const handleSalvar = async (dados: Paciente) => {
-      
+      console.log(dados)
       if (!dados.uid) {
         const retorno = await pacientesSrv.cadastrar(dados);
         if (retorno.sucesso) {
@@ -80,6 +82,19 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
                   onBlur={handleBlur('senha')}
                   onChangeText={handleChange('senha')} 
                   />
+              </AppItemForm>
+
+              {/* GENERO */}
+              <AppItemForm label="Genero">
+                  <RadioGroup
+                      radioButtons={[
+                          {id: 'M', label: 'Masculino', value: 'M' },
+                          {id: 'F', label: 'Feminino', value: 'F' },
+                      ]}
+                      selectedId={values.genero}
+                      containerStyle={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}
+                      labelStyle={{fontSize: 12}}
+                      onPress={handleChange('genero')} />
               </AppItemForm>
               
               {/* PROXIMO QUESTIONARIO DIARIO */}

@@ -29,6 +29,7 @@ const PacientesService = {
     cadastrar: async (paciente: Paciente) => {
         let retorno: {sucesso: boolean, codigo?: number } = { sucesso: false }
         try {
+            paciente.avatar = paciente.genero == 'M' ? 1 : 7;
             //Envia solicitação para o servidor
             const criarPaciente = httpsCallable(functions, 'criarPaciente');
             await criarPaciente(paciente).then((result:any) => {

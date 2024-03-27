@@ -26,6 +26,8 @@ exports.criarPaciente = onCall({ cors: [/firebase\.com$/, "flutter.com"] }, asyn
         const senha = request.data.senha;
         const coordenadorUID = request.auth?.uid;
         const ultimoDiaRespondido = request.data.ultimoDiaRespondido;
+        const genero = request.data.genero;
+        const avatar = request.data.avatar;
         const mediaCigarros = Number.parseInt(request.data.mediaCigarros);
         const precoCigarro = Number.parseFloat(request.data.precoCigarro);
         
@@ -53,7 +55,8 @@ exports.criarPaciente = onCall({ cors: [/firebase\.com$/, "flutter.com"] }, asyn
                 }).then(async () => {
                     
                     //Cria o paciente
-                    const paciente = new Paciente(userID, nome, codigo, mediaCigarros, precoCigarro, coordenadorUID, ultimoDiaRespondido)
+                    const paciente = new Paciente(userID, nome, codigo, mediaCigarros, precoCigarro, coordenadorUID, ultimoDiaRespondido, avatar)
+                    paciente.genero = genero;
                     await getFirestore().collection('pacientes').doc(userID).set(Object.assign({}, paciente)).catch(() => {retorno = {sucesso:false, erro: 'Criar paciente'}})
                     
                     //Atualiza o total de usuários cadastrados
@@ -95,6 +98,7 @@ exports.alterarPaciente = onCall({ cors: [/firebase\.com$/, "flutter.com"] }, as
 
     const coordenadorUID = request.auth?.uid;
     const nome = request.data.nome;
+    const genero = request.data.genero;
     const novaSenha = request.data.senha;
     const ultimoDiaRespondido = request.data.ultimoDiaRespondido;
     const pacienteID = request.data.pacienteID;
@@ -126,6 +130,7 @@ exports.alterarPaciente = onCall({ cors: [/firebase\.com$/, "flutter.com"] }, as
                         nome:nome,
                         precoCigarro:precoCigarro,
                         mediaCigarros:mediaCigarros,
+                        genero:genero,
                         ultimoDiaRespondido:ultimoDiaRespondido
                     })
                     .then(() => {retorno = {sucesso:true}})

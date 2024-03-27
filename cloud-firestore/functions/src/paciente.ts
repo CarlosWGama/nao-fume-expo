@@ -19,7 +19,8 @@ export class Paciente {
                 public primeiroAcesso: boolean = true,
                 public diasPraticoExercicio: number = 0, public excluido: boolean = false,
                 public questionariosDiarios: Questionario[] = [],
-                public conquistasAlcancadas: string[] = []) { }
+                public conquistasAlcancadas: string[] = [],
+                public genero: 'M'|'F' = 'M') { }
 }
 
 //função para retornar o avatar selecionado
