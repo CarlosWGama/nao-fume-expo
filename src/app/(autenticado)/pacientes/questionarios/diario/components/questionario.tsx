@@ -67,7 +67,8 @@ function FormularioQuestionarioDiario ({ dia, doAvancar }: FormularioQuestionari
                         <TextInput value={""+values.cigarros} onChangeText={(text) => {
                             if (!isNaN(parseInt(text)))
                                 setFieldValue('cigarros', parseInt(text))
-                        }} keyboardType='number-pad'/>
+                            else if (text == '') setFieldValue('cigarros', 0)
+                        }} keyboardType='number-pad' style={{ flex: 1 }}/>
                     </AppItemForm>}
 
                     {/* EXERCICIO */}

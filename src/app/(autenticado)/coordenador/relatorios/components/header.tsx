@@ -49,7 +49,8 @@ function AppHeaderRelatorio ({ pacientes }: AppHeaderRelatorioProps) {
 const styles = StyleSheet.create({
     container: {
         height: 180,
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        marginBottom: -5
     },
     title: {
         color: 'white',

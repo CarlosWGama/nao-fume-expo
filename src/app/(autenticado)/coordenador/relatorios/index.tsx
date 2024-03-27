@@ -10,6 +10,12 @@ import { usePacientesService } from '../../../../services/pacientes.service';
 import { Dimensions } from "react-native";
 import { AppColors } from '../../../../templates/colors';
 import { auth } from '../../../../config/firebase';
+import * as XLSX from 'xlsx';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import { AppButton } from '../../../../templates/components';
+import { dataFormat } from '../../../../helpers/general';
+import moment from 'moment';
 
 export interface RelatoriosProps {
 }
@@ -18,6 +24,8 @@ export default function Relatorios (props: RelatoriosProps) {
     const sessoesService = useSessoesService();
     const pacientesService = usePacientesService();
     const [ pacientes, setPacientes ] = useState<Paciente[]>([]);
+    const [ sessoes, setSessoes ] = useState<Sessao[]>([]);
+    const [ isGerando, setGerando ] = useState<boolean>(false);
     const [ info, setInfo ] = useState<{data: string, total: number, naoFumou: number, fumou: number, manutencao: number}[]>([]);
     const chartConfig = {
       backgroundGradientFrom: 'white',
@@ -32,11 +40,12 @@ export default function Relatorios (props: RelatoriosProps) {
       pacientes.sort((p1, p2) => (p1.diasSemFumar > p2.diasSemFumar ? -1 : 1))
       setPacientes(pacientes);
     }
-    // =========
+    // ----------
     const carregarGrafico = async () => {
       //Buscar sessões
       const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth.currentUser?.uid);
-      
+      setSessoes(sessoes);
+
       const newInfo: any = [];
       sessoes.forEach(s => {
       
@@ -56,10 +65,55 @@ export default function Relatorios (props: RelatoriosProps) {
       })
 
       setInfo(newInfo);
-      console.log(newInfo)
     }
+    // ---------------
+    const gerarRelatorioXLS = async () => {
+        setGerando(true);
+        const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth.currentUser?.uid);
 
-    // =========
+        let wb = XLSX.utils.book_new();
+        //Dados da tabela
+        const dados = [
+          ['Nome', 'Gênero', ...sessoes.map((sessao, index) => `Sessão ${index+1} - ${dataFormat(sessao.data)}`)]
+        ]
+
+        pacientes.sort((p1, p2) => p1.nome > p2.nome ? 1 : -1).forEach(p => {
+          let info = [p.nome, p.genero];
+      
+          info = info.concat(sessoes.map(sessao => {
+            //Sessão ainda não ocorreu
+            if (sessao.dadosPacientes.length == 0 || sessao.data > moment().format('YYYY-MM-DD')) return '0';
+            
+            //Paciente não encontrado
+            const dados = sessao.dadosPacientes.find(dados => dados.pacienteUID == p.uid);
+            if (!dados?.presente) return 'FALTOU';
+            if (!dados) return '0';
+
+            //Encontrou o paciente na sessão
+            return dados.situacao?.valueOf().toString();
+          }));
+
+          dados.push(info)
+        })
+
+
+        let ws = XLSX.utils.aoa_to_sheet(dados);
+    
+
+        //Gera o relatório
+        XLSX.utils.book_append_sheet(wb, ws, "relatorio", true);
+    
+        const base64 = XLSX.write(wb, { type: "base64" });
+        const filename = FileSystem.documentDirectory + "relatorio.xlsx";
+        FileSystem.writeAsStringAsync(filename, base64, {
+          encoding: FileSystem.EncodingType.Base64
+        }).then(() => {
+          Sharing.shareAsync(filename);
+        });
+        setGerando(false);
+
+      };
+    // ----------------
     useEffect(() => {
       buscarPacientes();
       carregarGrafico();
@@ -72,6 +126,9 @@ export default function Relatorios (props: RelatoriosProps) {
           <AppRankPacientes pacientes={pacientes}/>
           <Text style={styles.sessoes}>Sessões</Text>
           
+          {/* AÇÔES */}
+          <AppButton title='Gerando Relatório' onPress={gerarRelatorioXLS} loading={isGerando}/>
+
           {/* PRESENÇA  */}
           <View style={styles.chart}>
             <Text style={{fontSize: 18, color: AppColors.primary}}>Presença</Text>
@@ -93,7 +150,7 @@ export default function Relatorios (props: RelatoriosProps) {
           </View>
 
 
-            {/* PRESENÇA  */}
+          {/* PRESENÇA  */}
           <View style={styles.chart}>
             <Text style={{fontSize: 18, color: AppColors.primary}}>Situação dos pacientes</Text>
             {info.length > 0 && <StackedBarChart
@@ -108,6 +165,7 @@ export default function Relatorios (props: RelatoriosProps) {
                   withHorizontalLabels ={false}
                   chartConfig={chartConfig}
                 />}
+
         </View>
 
 
