@@ -4,10 +4,10 @@ import { AppColors } from "../templates/colors";
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { PacienteProvider } from "../contexts/paciente-context";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import './../globals';
 
 export default function LayoutInicial () {
-    
+
     return (
         <GestureHandlerRootView style={{flex: 1}}>
             <RootSiblingParent>

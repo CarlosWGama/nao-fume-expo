@@ -13,10 +13,15 @@ const PacientesService = {
     /* BUSCA OS PACIENTES VINCULADOS AO COORDENADOR */
     buscarPacientes: async () => {
         const pacientes: Paciente[]  = [];
-        const snaphosts = await getDocs(query(collection(db, 'pacientes'), where('coordenadorUID', '==', auth.currentUser?.uid)));
-        snaphosts.forEach(snap => {
-            pacientes.push(snap.data() as Paciente);
-        })
+        try {
+            console.log('a');
+            const snaphosts = await getDocs(query(collection(db, 'pacientes'), where('coordenadorUID', '==', auth.currentUser?.uid)));
+            snaphosts.forEach(snap => {
+                pacientes.push(snap.data() as Paciente);
+            })
+        } catch (e) {
+            console.log(e)
+        }
 
         return pacientes;
     

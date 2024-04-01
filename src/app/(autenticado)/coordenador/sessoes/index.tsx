@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from 'react-native';
 import { CoordenadorTemplate } from '../../../../templates/template-coordenador';
 import { CardSessao } from './components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { DadosPacientesSessao, Sessao, SituacaoSessao } from '../../../../models/sessao';
 import { AppFabButton } from '../../../../templates/components';
 import { AppColors } from '../../../../templates/colors';
@@ -47,9 +47,11 @@ export default function Sessoes (props: SessoesProps) {
       router.push('/coordenador/sessoes/visualizar/geral')
     }
     // ========
-    useFocusEffect(() => {
-        buscarSessoes();
-    });
+    useFocusEffect(
+      useCallback(() => {
+        buscarSessoes()
+      }, [])
+    );
     // =========================================================
     return (
       <CoordenadorTemplate title='Sessões'>

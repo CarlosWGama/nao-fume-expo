@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native';
 import { CoordenadorTemplate } from '../../../../templates/template-coordenador';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Paciente } from '../../../../models/paciente';
 import { CardPaciente } from './components';
 import { AppFabButton } from '../../../../templates/components/fab-button';
@@ -27,9 +27,11 @@ export default function Pacientes (props: PacientesProps) {
       router.push('/coordenador/pacientes/editar');
     }
     // =========
-    useFocusEffect(() => {
-      buscarPacientes();
-    })
+    useFocusEffect(
+      useCallback(() => {
+        buscarPacientes();
+      }, [])
+    )
     // ==========================================================================
     return (
       <CoordenadorTemplate title='Pacientes'>

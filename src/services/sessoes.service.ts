@@ -12,13 +12,21 @@ const SessoesService = {
     /** BUSCA AS SESSÕES VINCULADA AO COORDENADOR  */
     buscarSessoes: async (coordenadorID: string) => {
         const sessoes: Sessao[] = [];
-
-        const snapshots = await getDocs(query(collection(db, 'sessoes'), where('coordenadorUID', '==', coordenadorID)))
-        snapshots.forEach(snapshot => {
-            sessoes.push(snapshot.data() as Sessao);
-        })
-
-        sessoes.sort((s1, s2) => (s1.data < s2.data ? -1 : 1))
+        console.log('AAA');
+        try {
+            console.log('CCC');
+            const snapshots = await getDocs(query(collection(db, 'sessoes'), where('coordenadorUID', '==', coordenadorID)))
+            console.log('DDDD');
+            snapshots.forEach(snapshot => {
+                sessoes.push(snapshot.data() as Sessao);
+            })
+            
+            sessoes.sort((s1, s2) => (s1.data < s2.data ? -1 : 1))    
+        } catch(e) {
+            console.log(e)
+        }
+        
+        console.log('BBB');
 
         return sessoes;
     },
@@ -71,7 +79,6 @@ const SessoesService = {
      * Busca as sessões que o usuário ainda não respondeu.
      */
     buscarSessoesAbertas: async(usuario: Paciente) => {
-        console.log('---------------------------------------------')
         let sessoesAbertas: Sessao[] = [];
         const sessoes = await SessoesService.buscarSessoes(usuario.coordenadorUID)
         
