@@ -16,6 +16,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { TextInput } from 'react-native-gesture-handler';
 import MaskInput, { createNumberMask } from 'react-native-mask-input';
+import * as Speech from 'expo-speech';
 
 export interface FinanceiroScreenProps {
 }
@@ -82,10 +83,20 @@ export default function FinanceiroScreen (props: FinanceiroScreenProps) {
         let valor = usuario?.dinheiroDisponivel / meta.objetivo;
         return Math.min(1, valor);
     }
+    // ---------
+    const falaInicial = async () => {
+        const msg = 'Essa é a seção financeiro. Nela você pode ver o quanto economizou não fumando e cadastrar itens clicando no botão de mais, para adicionar itens que você quer obter com o dinheiro que está juntando, como por exemplo, ir ao cinema ou fazer uma festa.....';
+        Speech.speak(msg, { language: 'pt' });
+    }
     // ----------
     React.useEffect(() => {
         buscarMetas();
+        falaInicial();
     }, []);
+    // ---------
+    React.useEffect(() => () => {
+        Speech.stop();
+    }, [])
     // ============================================================================
     return (
         <PacienteTemplate title="Financeiro" color={AppColors.danger}>

@@ -12,11 +12,11 @@ const SessoesService = {
     /** BUSCA AS SESSÕES VINCULADA AO COORDENADOR  */
     buscarSessoes: async (coordenadorID: string) => {
         const sessoes: Sessao[] = [];
-        console.log('AAA');
+
         try {
-            console.log('CCC');
+            
             const snapshots = await getDocs(query(collection(db, 'sessoes'), where('coordenadorUID', '==', coordenadorID)))
-            console.log('DDDD');
+
             snapshots.forEach(snapshot => {
                 sessoes.push(snapshot.data() as Sessao);
             })
@@ -25,8 +25,6 @@ const SessoesService = {
         } catch(e) {
             console.log(e)
         }
-        
-        console.log('BBB');
 
         return sessoes;
     },

@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import PacienteTemplate from '../../../../../templates/template-paciente';
 import { AppColors } from '../../../../../templates/colors';
 import { usePacienteContext } from '../../../../../contexts/paciente-context';
 import { useConquistasService } from '../../../../../services/conquistas.service';
+import * as Speech from 'expo-speech';
 
 export interface ConquistasScreenProps {
 }
@@ -12,7 +13,10 @@ export default function ConquistasScreen (props: ConquistasScreenProps) {
 
     const { usuario } = usePacienteContext();
     const conquistasService = useConquistasService();
-  
+    // ================================================
+    const falar = async (msg) => {
+        Speech.speak(msg, { language: 'pt' });
+    }
     //=============================================================
     return (
         <PacienteTemplate title="Conquistas" color={AppColors.success}>
@@ -27,27 +31,34 @@ export default function ConquistasScreen (props: ConquistasScreenProps) {
                 </View>
 
                 {/* CONQUISTAS ALCANÇADAS */}
-                <Text style={styles.sessaoText}>Conquistas Alcançadas</Text>
+                <TouchableOpacity onPress={() => falar('Essas são suas conquitas alcançadas')}>
+                    <Text style={styles.sessaoText}>Conquistas Alcançadas</Text>
+                </TouchableOpacity>
                 <View style={styles.cards}>
                     {conquistasService.buscarConquistasExistentes().filter(c => usuario?.conquistasAlcancadas.includes(c.codigo)).map(conquista => (
-                        <View style={[styles.card, { width: 150}]} key={conquista.codigo}>
-                            <Text style={styles.cardH1}>{conquista.titulo}</Text>
-                            <Image source={conquista.imagem} style={{width: 75, height: 75}} />
-                            <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
-                        </View>
-                        
-                    ))}
+                        <TouchableOpacity key={conquista.codigo} onPress={() => falar(conquista.descricao)} >
+                            <View style={[styles.card, { width: 150}]} >
+                                <Text style={styles.cardH1}>{conquista.titulo}</Text>
+                                <Image source={conquista.imagem} style={{width: 75, height: 75}} />
+                                <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        ))}
                 </View>
 
                 {/* PROXIMAS CONQUISTAS */}
-                <Text style={styles.sessaoText}>Próximas Conquistas</Text>
+                <TouchableOpacity onPress={() => falar('Essas são as conquitas que você ainda não alcançou')}>
+                    <Text style={styles.sessaoText}>Próximas Conquistas</Text>
+                </TouchableOpacity>
                 <View style={styles.cards}>
                     {conquistasService.buscarConquistasExistentes().filter(c => !usuario?.conquistasAlcancadas.includes(c.codigo)).map(conquista => (
-                        <View style={[styles.card, { width: 150, backgroundColor: '#a098a2'}]} key={conquista.codigo}>
-                            <Text style={styles.cardH1}>{conquista.titulo}</Text>
-                            <Image source={conquista.imagem} style={{width: 75, height: 75}} />
-                            <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
-                        </View>
+                        <TouchableOpacity key={conquista.codigo} onPress={() => falar(conquista.descricao)}>
+                            <View style={[styles.card, { width: 150, backgroundColor: '#a098a2'}]} >
+                                <Text style={styles.cardH1}>{conquista.titulo}</Text>
+                                <Image source={conquista.imagem} style={{width: 75, height: 75}} />
+                                <Text style={styles.cardDescricao}>{conquista.descricao}</Text>
+                            </View>
+                        </TouchableOpacity>
                     ))}
                 </View>
             </ScrollView>
