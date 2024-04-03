@@ -5,7 +5,7 @@ import { AppConfig } from '../config/app';
 import { AppColors } from '../templates/colors';
 import { usePacienteContext } from '../contexts/paciente-context';
 import { Paciente } from '../models/paciente';
-import { auth } from '../config/firebase';
+import auth from '@react-native-firebase/auth';
 import { useUsuariosService } from '../services/usuarios.service';
 
 export default function Initial (props) {
@@ -18,7 +18,7 @@ export default function Initial (props) {
         (async () => {
             await new Promise(resolve => setTimeout(resolve, 5000));
 
-            auth.onAuthStateChanged(async (user) => {
+            auth().onAuthStateChanged(async (user) => {
                 if (!user) 
                     router.replace('/login')
                 else {
@@ -48,12 +48,12 @@ export default function Initial (props) {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: AppColors.lightgrey}}>
          <Text style={{fontSize: 20, margin: 10}}>{AppConfig.nome}</Text>
          <Text>{AppConfig.versao}</Text>
-         <Text>Seli</Text>
-         <Text>Sonia Ferreira</Text>
+         <Text>Seli Sousa Mello de Almeida</Text>
+         <Text>Sonia Maria Soares Ferreira</Text>
          <Text>Carlos W. Gama</Text>
-         <Text>Robysson</Text>
-         <Text>Evanisa</Text>
-         <Text>Letícia</Text>
+         <Text>Robbysson Cayke de Sousa Pereira</Text>
+         <Text>Evanisa Helena Maio de Brum</Text>
+         <Text>Leticia Costa Queiroz</Text>
       </View>
     );
 }

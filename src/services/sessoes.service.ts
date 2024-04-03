@@ -1,8 +1,8 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
 import { DadosPacientesSessao, Sessao, SituacaoSessao } from "../models/sessao"
 import moment from "moment";
 import { Paciente } from "../models/paciente";
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 /**
  * Controla o acesso a API
@@ -15,7 +15,7 @@ const SessoesService = {
 
         try {
             
-            const snapshots = await getDocs(query(collection(db, 'sessoes'), where('coordenadorUID', '==', coordenadorID)))
+            const snapshots = await firestore().collection('sessoes').where('coordenadorUID', '==', coordenadorID).get()
 
             snapshots.forEach(snapshot => {
                 sessoes.push(snapshot.data() as Sessao);
@@ -37,12 +37,12 @@ const SessoesService = {
     cadastrar: async (sessao: Sessao) => {
         const retorno: {sucesso: boolean} = { sucesso: false };
         
-        if (auth.currentUser) {
-            const sessaoDOC = doc(collection(db, 'sessoes'));
+        if (auth().currentUser) {
+            const sessaoDOC = firestore().collection('sessoes').doc();
             sessao.id = sessaoDOC.id;
-            sessao.coordenadorUID = auth.currentUser.uid;  
+            sessao.coordenadorUID = auth().currentUser.uid;  
             console.log(sessao);
-            await setDoc(sessaoDOC, {...sessao}).then(() => retorno.sucesso = true );
+            await  sessaoDOC.set({...sessao}).then(() => retorno.sucesso = true );
         }
         return retorno;
     },
@@ -54,8 +54,8 @@ const SessoesService = {
      */
     atualizar: async (sessao: Sessao) => {
         const retorno: {sucesso: boolean} = { sucesso: false };
-        if (sessao.id && auth.currentUser && (sessao.coordenadorUID == auth.currentUser.uid || sessao.dadosPacientes.map(p => p.pacienteUID).includes(auth.currentUser.uid))) {
-            await updateDoc(doc(db, 'sessoes', sessao.id), JSON.parse(JSON.stringify(sessao))).then(() => retorno.sucesso = true );
+        if (sessao.id && auth().currentUser && (sessao.coordenadorUID == auth().currentUser.uid || sessao.dadosPacientes.map(p => p.pacienteUID).includes(auth().currentUser.uid))) {
+            await  firestore().collection('sessoes').doc(sessao.id).update(JSON.parse(JSON.stringify(sessao))).then(() => retorno.sucesso = true );
         }
         return retorno;
     },
@@ -67,8 +67,8 @@ const SessoesService = {
      */
     excluir: async (sessao: Sessao) => {
         const retorno: {sucesso: boolean} = { sucesso: false };
-        if (sessao.id && auth.currentUser && sessao.coordenadorUID == auth.currentUser.uid) {
-            await deleteDoc(doc(db, 'sessoes', sessao.id)).then(() => retorno.sucesso = true );
+        if (sessao.id && auth().currentUser && sessao.coordenadorUID == auth().currentUser.uid) {
+            await firestore().collection('sessoes').doc(sessao.id).delete().then(() => retorno.sucesso = true );
         }
         return retorno;
     },

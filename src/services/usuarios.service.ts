@@ -1,7 +1,8 @@
-import { getAuth, signInWithEmailAndPassword, updatePassword } from 'firebase/auth';
-import { getFirestore, getDoc, doc } from 'firebase/firestore';
+
 import { Paciente } from '../models/paciente';
-import { auth, db } from '../config/firebase';
+import auth, { firebase } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 
 /**
@@ -16,9 +17,9 @@ const UsuariosService = {
         const email = `${codigo}@cwg.services`;
 
         try {
-            const autenticacao = (await signInWithEmailAndPassword(auth, email, senha)).user;
-            const snapshot = await getDoc(doc(db, 'usuarios', autenticacao.uid));
-            if (snapshot.exists()) {
+            const autenticacao = (await auth().signInWithEmailAndPassword(email, senha)).user;
+            const snapshot = await  firestore().collection('usuarios').doc(autenticacao.uid).get();
+            if (snapshot.exists) {
                 const usuario = snapshot.data();
 
                 //Logado
@@ -27,7 +28,7 @@ const UsuariosService = {
 
                     //Se paciente, buscar dados 
                     if (usuario.nivel == 1) {
-                        retorno.paciente = (await getDoc(doc(db, 'pacientes', autenticacao.uid))).data() as Paciente;
+                        retorno.paciente = (await firestore().collection('pacientes').doc(autenticacao.uid).get()).data() as Paciente;
                         retorno.nivel = 'paciente';
                     }
                     
@@ -48,10 +49,10 @@ const UsuariosService = {
      */
     buscarUsuarioLogado: async () => {
         const retorno: { logado: boolean, paciente?: Paciente, nivel: 'coordenador'|'paciente'} = { logado: false, nivel: 'coordenador' };
-        if (auth.currentUser) {   
+        if (auth().currentUser) {   
             try {
-                const snapshot = await getDoc(doc(db, 'usuarios', auth.currentUser.uid));
-                if (snapshot.exists()) {
+                const snapshot = await firestore().collection('usuarios').doc(auth().currentUser.uid).get();
+                if (snapshot.exists) {
                     const usuario = snapshot.data();
 
                     //Logado
@@ -60,7 +61,7 @@ const UsuariosService = {
 
                         //Se paciente, buscar dados 
                         if (usuario.nivel == 1) {
-                            retorno.paciente = (await getDoc(doc(db, 'pacientes', auth.currentUser.uid))).data() as Paciente;
+                            retorno.paciente = (await firestore().collection('pacientes').doc(auth().currentUser.uid).get()).data() as Paciente;
                             retorno.nivel = 'paciente';
                         } 
                     }
@@ -78,7 +79,7 @@ const UsuariosService = {
      * @param senha 
      */
     alterarSenha: async (senha: string) => {
-        await updatePassword(auth.currentUser, senha);
+        await auth().currentUser.updatePassword(senha);
     }
 }
 

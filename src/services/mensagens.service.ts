@@ -1,7 +1,6 @@
 import { Mensagem } from "../models/mensagem";
 import moment from "moment";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import firestore from '@react-native-firebase/firestore';
 
 //Quantidade máxima de mensagem por chat
 const LIMITE = 100;
@@ -13,8 +12,8 @@ const MensagensService = {
     /* BUSCA OS PACIENTES VINCULADOS AO COORDENADOR */
     buscarMensagens: async (coordenadorUID) => {
         let mensagens: Mensagem[] = [];
-        const snapshot = await getDoc(doc(db, 'avisos', coordenadorUID))
-        if (snapshot.exists()) 
+        const snapshot = await firestore().collection('avisos').doc(coordenadorUID).get()
+        if (snapshot.exists) 
             mensagens = snapshot.data()?.mensagens as Mensagem[];
         return mensagens;
     },
@@ -24,8 +23,9 @@ const MensagensService = {
         const retorno = { sucesso: false, mensagens: []}
         try {
             let mensagens: Mensagem[] = [];
-            const snapshot = await getDoc(doc(db, 'avisos', coordenadorUID))
-            if (snapshot.exists())  
+            const avisosDOC = firestore().collection('avisos').doc(coordenadorUID);
+            const snapshot = await avisosDOC.get();
+            if (snapshot.exists)  
                 mensagens = snapshot.data()?.mensagens as Mensagem[];
             if (!mensagens) mensagens = [];
             
@@ -34,7 +34,7 @@ const MensagensService = {
             while (mensagens.length > LIMITE) 
                 mensagens.shift();
     
-            setDoc(doc(db, 'avisos', coordenadorUID), {mensagens: [...JSON.parse(JSON.stringify(mensagens))]}) 
+            avisosDOC.set({mensagens: [...JSON.parse(JSON.stringify(mensagens))]}) 
             retorno.mensagens = mensagens;
             retorno.sucesso = true;
         } catch (e) {

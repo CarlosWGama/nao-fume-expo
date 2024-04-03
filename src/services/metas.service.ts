@@ -1,7 +1,6 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { Meta } from "../models/meta";
-import { auth, db } from "../config/firebase";
-
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 /**
  * Controla o acesso a API
  */
@@ -11,9 +10,8 @@ const MetasService = {
     buscarMetas: async () => {
         const metas: Meta[] = [];
 
-        if (auth.currentUser?.uid) {
-            const queryRef = query(collection(db, 'metas'), where('pacienteUID', '==', auth.currentUser.uid))
-            const snapshots = await getDocs(queryRef)
+        if (auth().currentUser?.uid) {
+            const snapshots = await firestore().collection('metas').where('pacienteUID', '==', auth().currentUser.uid).get();
             snapshots.forEach(snap => {
                 metas.push(snap.data() as Meta)
             })
@@ -29,12 +27,12 @@ const MetasService = {
     cadastrar: async (meta: Meta) => {
         const retorno = { sucesso: false }
         try {
-            if (auth.currentUser?.uid) {
-                const metaDOC = doc(collection(db, 'metas'));
-                meta.pacienteUID = auth.currentUser.uid;
+            if (auth().currentUser?.uid) {
+                const metaDOC =  firestore().collection('metas').doc();
+                meta.pacienteUID = auth().currentUser.uid;
                 meta.uid = metaDOC.id;
-                console.log(meta);
-                await setDoc(metaDOC, {...meta})
+                
+                await metaDOC.set({...meta})
                 retorno.sucesso = true;
             }
         } catch(e) {
@@ -49,8 +47,8 @@ const MetasService = {
     remover: async(meta: Meta) => {
         const retorno = { sucesso: false }
         try {
-            if (auth.currentUser?.uid && meta.uid) {
-                await deleteDoc(doc(db, 'metas', meta.uid));
+            if (auth().currentUser?.uid && meta.uid) {
+                await firestore().collection('metas').doc(meta.uid).delete();
                 retorno.sucesso = true;
             }
         } catch(e) {
@@ -66,8 +64,8 @@ const MetasService = {
     usar: async(meta: Meta) => {
         const retorno = { sucesso: false }
 
-        if (auth.currentUser?.uid && meta.uid) {
-            await updateDoc(doc(db, 'metas', meta.uid), {usado: true});
+        if (auth().currentUser?.uid && meta.uid) {
+            await firestore().collection('metas').doc(meta.uid).update({usado: true});
             retorno.sucesso = true;
         }
         return retorno;

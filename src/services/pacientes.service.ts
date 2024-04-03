@@ -1,8 +1,7 @@
 import { Paciente } from "../models/paciente";
-import { getDoc, getDocs, doc, setDoc, updateDoc, query, where, collection } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db, functions } from "../config/firebase";
-import { getFunctions, httpsCallable } from "firebase/functions";
+import functions from '@react-native-firebase/functions';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 
 /**
@@ -15,7 +14,7 @@ const PacientesService = {
         const pacientes: Paciente[]  = [];
         try {
             console.log('a');
-            const snaphosts = await getDocs(query(collection(db, 'pacientes'), where('coordenadorUID', '==', auth.currentUser?.uid)));
+            const snaphosts = await firestore().collection('pacientes').where('coordenadorUID', '==', auth().currentUser?.uid).get();
             snaphosts.forEach(snap => {
                 pacientes.push(snap.data() as Paciente);
             })
@@ -36,7 +35,7 @@ const PacientesService = {
         try {
             paciente.avatar = paciente.genero == 'M' ? 1 : 7;
             //Envia solicitação para o servidor
-            const criarPaciente = httpsCallable(functions, 'criarPaciente');
+            const criarPaciente = functions().httpsCallable('criarPaciente');
             await criarPaciente(paciente).then((result:any) => {
                 const response = JSON.parse(result.data);
                 if (response.sucesso) 
@@ -62,17 +61,17 @@ const PacientesService = {
         const retorno: {sucesso: boolean } = { sucesso: false }
         //Verifica se pode atualizar
         try {
-            const usuario = auth.currentUser;
+            const usuario = auth().currentUser;
             //Só pode alterar se for o coordenador ou o próprio usuário
             if (paciente.uid == usuario?.uid || paciente.coordenadorUID == usuario?.uid) {
                 if (paciente.senha) {
                     console.log('TROCOU SENHA');
-                    const alterarSenha = httpsCallable(functions, 'alterarSenha');
+                    const alterarSenha = functions().httpsCallable('alterarSenha');
                     await alterarSenha({usuarioID: paciente.uid, senha: paciente.senha});
                 }
                 delete paciente.senha;
                 console.log(JSON.parse(JSON.stringify(paciente)));
-                await updateDoc(doc(db, 'pacientes', paciente.uid), JSON.parse(JSON.stringify(paciente)));
+                await firestore().collection('pacientes').doc(paciente.uid).update(JSON.parse(JSON.stringify(paciente)));
                 retorno.sucesso = true;
             }
         } catch(e) {

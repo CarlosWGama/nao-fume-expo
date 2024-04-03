@@ -9,7 +9,7 @@ import { useCoordenadorContext } from '../../../../contexts/coordenador-context'
 import { router, useFocusEffect } from 'expo-router';
 import Toast from 'react-native-root-toast';
 import { useSessoesService } from '../../../../services/sessoes.service';
-import { auth } from '../../../../config/firebase';
+import auth from '@react-native-firebase/auth';
 
 export interface SessoesProps {
 }
@@ -20,8 +20,8 @@ export default function Sessoes (props: SessoesProps) {
     const sessoesSrv = useSessoesService();
     // =========================================================
     const buscarSessoes = async () => {
-      if (auth.currentUser)
-        setSessoes(await sessoesSrv.buscarSessoes(auth.currentUser.uid));
+      if (auth().currentUser)
+        setSessoes(await sessoesSrv.buscarSessoes(auth().currentUser.uid));
     }
     // ========
     const handleNovaSessao = async () => {

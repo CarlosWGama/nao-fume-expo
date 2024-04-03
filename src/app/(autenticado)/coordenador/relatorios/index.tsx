@@ -9,7 +9,7 @@ import { useSessoesService } from '../../../../services/sessoes.service';
 import { usePacientesService } from '../../../../services/pacientes.service';
 import { Dimensions } from "react-native";
 import { AppColors } from '../../../../templates/colors';
-import { auth } from '../../../../config/firebase';
+import auth from '@react-native-firebase/auth';
 import * as XLSX from 'xlsx';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
@@ -43,7 +43,7 @@ export default function Relatorios (props: RelatoriosProps) {
     // ----------
     const carregarGrafico = async () => {
       //Buscar sessões
-      const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth.currentUser?.uid);
+      const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth().currentUser?.uid);
       setSessoes(sessoes);
 
       const newInfo: any = [];
@@ -69,7 +69,7 @@ export default function Relatorios (props: RelatoriosProps) {
     // ---------------
     const gerarRelatorioXLS = async () => {
         setGerando(true);
-        const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth.currentUser?.uid);
+        const sessoes: Sessao[] = await sessoesService.buscarSessoes(auth().currentUser?.uid);
 
         let wb = XLSX.utils.book_new();
         //Dados da tabela

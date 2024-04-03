@@ -4,8 +4,7 @@ import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { AppHeaderButton } from './components';
-import { auth } from '../config/firebase';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import auth from '@react-native-firebase/auth';
 
 export interface PacienteTemplateProps {
     title: string;
@@ -16,7 +15,7 @@ export interface PacienteTemplateProps {
 export default function PacienteTemplate ({title, children, color}: PacienteTemplateProps) {
      // ==============================================================================
      const handleSair = async () => {
-        auth.signOut();
+        auth().signOut();
         router.replace('/login')
     }
     // ===============================================================================

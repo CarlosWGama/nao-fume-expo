@@ -4,7 +4,7 @@ import { AppColors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { AppHeaderButton } from './components';
-import { getAuth } from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 export interface CoordenadorTemplateProps {
     title: string
@@ -15,8 +15,7 @@ export function CoordenadorTemplate ({children, title}: CoordenadorTemplateProps
 
     // ==============================================================================
     const handleSair = async () => {
-        const auth = getAuth();
-        auth.signOut();
+        auth().signOut();
         router.replace('/login')
     }
 
