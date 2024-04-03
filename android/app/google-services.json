@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "324989638432",
+    "firebase_url": "https://naofumev2-default-rtdb.firebaseio.com",
+    "project_id": "naofumev2",
+    "storage_bucket": "naofumev2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324989638432:android:c38acb51f061bbad8e6945",
+        "android_client_info": {
+          "package_name": "br.com.carloswgama.naofume"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB84Qmeo7OFvayO4Hk4wgkcMRC8Xa0akAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

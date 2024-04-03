@@ -48,12 +48,12 @@ export default function Initial (props) {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: AppColors.lightgrey}}>
          <Text style={{fontSize: 20, margin: 10}}>{AppConfig.nome}</Text>
          <Text>{AppConfig.versao}</Text>
-         <Text>Seli</Text>
-         <Text>Sonia Ferreira</Text>
+         <Text>Seli Sousa Mello de Almeida</Text>
+         <Text>Sonia Maria Soares Ferreira</Text>
          <Text>Carlos W. Gama</Text>
-         <Text>Robysson</Text>
-         <Text>Evanisa</Text>
-         <Text>Letícia</Text>
+         <Text>Robbysson Cayke de Sousa Pereira</Text>
+         <Text>Evanisa Helena Maio de Brum</Text>
+         <Text>Leticia Costa Queiroz</Text>
       </View>
     );
 }
