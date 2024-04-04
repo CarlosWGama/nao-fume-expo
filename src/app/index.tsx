@@ -7,17 +7,32 @@ import { usePacienteContext } from '../contexts/paciente-context';
 import { Paciente } from '../models/paciente';
 import auth from '@react-native-firebase/auth';
 import { useUsuariosService } from '../services/usuarios.service';
+import * as Updates from 'expo-updates';
 
 export default function Initial (props) {
 
     const { setUsuario } = usePacienteContext();
     const usuarioSrv = useUsuariosService();
     // =============================================
-    useEffect(() => {
-        //Redireciona para tela de login
+    useEffect(() => {      
         (async () => {
+            // =========== PROCURA POR ATUALIZAÇÕES =============== //
+            try {
+                const update = await Updates.checkForUpdateAsync();
+          
+                if (update.isAvailable) {
+                  await Updates.fetchUpdateAsync();
+                  await Updates.reloadAsync();
+                }
+              } catch (error) {
+                alert(`Erro no update: ${error}`);
+              }
+
+
+            // =========== AGUARDA O MENU =============== //
             await new Promise(resolve => setTimeout(resolve, 5000));
 
+            // =========== DIRECIONA O USUÁRIO =============== //
             auth().onAuthStateChanged(async (user) => {
                 if (!user) 
                     router.replace('/login')
