@@ -45,7 +45,9 @@ export default function Sessoes (props: SessoesProps) {
           else
             Toast.show('Não foi possível completar a operação')
         }}
+      ])
     }
+    
     // ========
     const handleAbrir = async (sessao: Sessao) => {
       setSessao(sessao)

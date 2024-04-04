@@ -1,5 +1,5 @@
 export const AppConfig = {
-    nome: 'Não Fume',
-    versao: '1.0.0',
+    nome: 'Sessão NãoFume PRO',
+    versao: '1.0.3',
     autor: 'Carlos W. Gama'
 }
