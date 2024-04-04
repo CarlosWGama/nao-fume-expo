@@ -108,8 +108,8 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
                             </View>
                             {/* FUMOU? */}
                             <View style={styles.tableData}>
-                                {item.fumou && <AppLabel text="SIM" color={AppColors.danger} size={10}/>}
-                                {!item.fumou && <AppLabel text="NÃO" color={AppColors.success} size={10} />}
+                                {!item.fumou && <AppLabel text="SIM" color={AppColors.success} size={10}/>}
+                                {item.fumou && <AppLabel text="NÃO" color={AppColors.danger} size={10} />}
                             </View>
                             {/* VONTADE DE FUMAR */}
                             <View style={styles.tableData}>

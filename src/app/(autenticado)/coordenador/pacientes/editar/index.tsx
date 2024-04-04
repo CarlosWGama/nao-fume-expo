@@ -99,7 +99,7 @@ export default function PacienteEditarScreen (props: PacienteEditarScreenProps) 
               </AppItemForm>
               
               {/* PROXIMO QUESTIONARIO DIARIO */}
-              <AppItemForm label="Próximo questionário diário" error={errors.ultimoDiaRespondido && touched.ultimoDiaRespondido}>
+              <AppItemForm label="Último questionário diário respondido" error={errors.ultimoDiaRespondido && touched.ultimoDiaRespondido}>
                 <MaskInput style={{flex:1, marginLeft: 10}} 
                   value={dataFormat(""+values.ultimoDiaRespondido)}  
                   onChangeText={(text) => {
