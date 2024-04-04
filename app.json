@@ -2,7 +2,7 @@
   "expo": {
     "name": "seli-expo",
     "slug": "seli-expo",
-    "version": "1.0.2",
+    "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "nao-fume",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +27,7 @@
       },
       "googleServicesFile": "./google-services.json",
       "package": "br.com.carloswgama.naofume",
-      "buildNumber": 2
+      "buildNumber": 3
     },
     "web": {
       "favicon": "./assets/favicon.png",
