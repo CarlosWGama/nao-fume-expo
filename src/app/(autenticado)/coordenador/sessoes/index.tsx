@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { CoordenadorTemplate } from '../../../../templates/template-coordenador';
 import { CardSessao } from './components';
 import { useEffect, useState, useCallback } from 'react';
@@ -35,11 +35,16 @@ export default function Sessoes (props: SessoesProps) {
     }
     // ========
     const handleExcluir = async (sessao: Sessao) => {
-      const retorno = await sessoesSrv.excluir(sessao);
-      if (retorno.sucesso)
-        Toast.show('Tarefa excluida com sucesso!')
-      else
-        Toast.show('Não foi possível completar a operação')
+      Alert.alert('Excluir', 'Deseja realmente excluir essa sessão?', [
+        {text: 'Cancelar'},
+        {text: 'Confirmar', onPress: async () => {
+          const retorno = await sessoesSrv.excluir(sessao);
+          setSessoes(await sessoesSrv.buscarSessoes(auth.currentUser.uid));
+          if (retorno.sucesso)
+            Toast.show('Tarefa excluida com sucesso!')
+          else
+            Toast.show('Não foi possível completar a operação')
+        }}
     }
     // ========
     const handleAbrir = async (sessao: Sessao) => {
