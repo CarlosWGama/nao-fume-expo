@@ -43,9 +43,11 @@ export default function QuestionarioDiarioScreen (props: QuestionarioDiarioScree
         //Adiciona as informações ao perfil do usuário
         if (questionario.fumou)
           novosDados.diasSeguidosSemFumar = 0;
-        else
+        else {
           novosDados.diasSeguidosSemFumar++;
-        novosDados.diasSemFumar++
+          novosDados.diasSemFumar++
+        }
+        
         novosDados.cigarrosEvitados += cigarrosEvitados;
         novosDados.dinheiroAcumulado += economizado;
         novosDados.dinheiroDisponivel += economizado;

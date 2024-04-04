@@ -8,6 +8,8 @@ import { AppColors } from '../../../../../templates/colors';
 import { Questionario } from '../../../../../models/questionario';
 import { dataFormat } from '../../../../../helpers/general';
 import { router } from 'expo-router';
+import { useSessoesService } from '../../../../../services/sessoes.service';
+import auth from '@react-native-firebase/auth';
 
 export interface PacienteVisualizarProps {
 }
@@ -16,10 +18,26 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
 
 
     const { paciente } = useCoordenadorContext();
+    const sessoesSrv = useSessoesService();
+    const [ participacoes, setParticipacoes ] = React.useState(0);
     // ================================================================
     const handleEditar = async () => {
         router.push('/coordenador/pacientes/editar')
-    }    
+    }   
+    // ---------
+    React.useEffect(() => {
+        (async() => {
+            let participacoes = 0;
+            const sessoes = await sessoesSrv.buscarSessoes(auth().currentUser?.uid);
+            sessoes.forEach(s => {
+                s.dadosPacientes.forEach(dados => {
+                    if (dados.pacienteUID == paciente?.uid && dados.presente) participacoes++;
+                })
+            })
+
+            setParticipacoes(participacoes);
+        })()
+    }, []) 
     // ================================================================
     return (
         <View style={{flex: 1}}>
@@ -58,7 +76,7 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
                         </View>
 
                         <View style={styles.infoRow}>
-                            <AppLabel text={"0"} size={12} />
+                            <AppLabel text={""+participacoes} size={12} />
                             <Text style={{fontSize: 12}}>Sessões idas</Text>
                         </View>
             
@@ -106,7 +124,7 @@ export default function PacienteVisualizarScreen (props: PacienteVisualizarProps
                             <View style={styles.tableData}>
                                 <Text style={{fontSize: 12}}>{dataFormat(item.dia)}</Text>
                             </View>
-                            {/* FUMOU? */}
+                            {/* ABSTINENTE? */}
                             <View style={styles.tableData}>
                                 {!item.fumou && <AppLabel text="SIM" color={AppColors.success} size={10}/>}
                                 {item.fumou && <AppLabel text="NÃO" color={AppColors.danger} size={10} />}
