@@ -10,18 +10,13 @@ export interface AppHeaderProps {
     back?: boolean
 }
 
-export function AppHeader ({backgroundColor, title, back, color}: AppHeaderProps) {
+export function AppHeader ({backgroundColor = AppColors.primary, title, back, color = 'white'}: AppHeaderProps) {
     return (
       <View style={[styles.container, {backgroundColor}]}>
          {back && <AppBackButton />}
          <Text style={[styles.text, {color}]}>{title}</Text>
       </View>
     );
-}
-
-AppHeader.defaultProps = {
-    backgroundColor: AppColors.primary,
-    color: 'white'
 }
 
 export default React.memo(AppHeader)

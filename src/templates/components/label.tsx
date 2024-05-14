@@ -9,17 +9,12 @@ export interface AppLabelProps {
     textColor?: string
 }
 
-function AppLabel ({text, color, size, textColor}: AppLabelProps) {
+function AppLabel ({text, color = AppColors.primary, size = 14, textColor = 'white'}: AppLabelProps) {
     return (
          <Text style={[styles.label, {backgroundColor: color, fontSize: size, color: textColor, fontWeight: 'bold'}]}>{text}</Text>
     );
 }
-// =======
-AppLabel.defaultProps = {
-    color: AppColors.primary,
-    size: 14,
-    textColor: 'white'
-}
+
 // =======
 const styles = StyleSheet.create({
     label: {

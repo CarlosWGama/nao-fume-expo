@@ -8,18 +8,13 @@ export interface InputProps {
     keyboardType?: 'default'|'number-pad';
 }
 
-export default function AppInput ({label, password, onChangeText, keyboardType}: InputProps) {
+export default function AppInput ({label, password = false, onChangeText, keyboardType = 'default'}: InputProps) {
     return (
       <View style={styles.container}>
          <Text style={styles.label}>{label}</Text>
          <TextInput style={styles.input} secureTextEntry={password} onChangeText={onChangeText} keyboardType={keyboardType}/>
       </View>
     );
-}
-
-AppInput.defaultProps = {
-    keyboardType:'default',
-    password: false
 }
 
 const styles = StyleSheet.create({

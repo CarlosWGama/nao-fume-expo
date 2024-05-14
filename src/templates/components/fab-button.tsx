@@ -11,7 +11,7 @@ export interface AppFabButtonProps {
     onPress():void
 }
 
-export function AppFabButton ({icon, color, position, onPress}: AppFabButtonProps) {
+export function AppFabButton ({icon = 'add', color = AppColors.primary, position = 'top-right', onPress}: AppFabButtonProps) {
 
     let positionFab;
     if (position == 'top-left') positionFab = {top: 5, left: 5}
@@ -28,12 +28,6 @@ export function AppFabButton ({icon, color, position, onPress}: AppFabButtonProp
             </TouchableOpacity>
         </View>
     );
-}
-// =======
-AppFabButton.defaultProps = {
-    icon: 'add',
-    color: AppColors.primary,
-    position: 'top-right'
 }
 // =======
 const styles = StyleSheet.create({
