@@ -14,7 +14,7 @@ export interface AppButtonProps {
     icon?: string
 }
 
-function AppButton ({color, transparent, title, onPress, textColor, disabled, loading, icon}: AppButtonProps) {
+function AppButton ({color = AppColors.primary, transparent, title, onPress, textColor = 'white', disabled, loading, icon}: AppButtonProps) {
     return (
         <TouchableOpacity onPress={disabled || loading ? () => {} : onPress}>
             <View style={[styles.container, 
@@ -30,11 +30,6 @@ function AppButton ({color, transparent, title, onPress, textColor, disabled, lo
             </View>
         </TouchableOpacity>
     );
-}
-// =======
-AppButton.defaultProps = {
-    textColor: 'white',
-    color: AppColors.primary,
 }
 // =======
 const styles = StyleSheet.create({

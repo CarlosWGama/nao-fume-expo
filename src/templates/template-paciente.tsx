@@ -12,7 +12,7 @@ export interface PacienteTemplateProps {
     color?: string;
 }
 
-export default function PacienteTemplate ({title, children, color}: PacienteTemplateProps) {
+export default function PacienteTemplate ({title, children, color = AppColors.primary}: PacienteTemplateProps) {
      // ==============================================================================
      const handleSair = async () => {
         auth().signOut();
@@ -54,10 +54,6 @@ export default function PacienteTemplate ({title, children, color}: PacienteTemp
             </View>
       </View>
     );   
-}
-
-PacienteTemplate.defaultProps = {
-    color: AppColors.primary
 }
 
 const styles = StyleSheet.create({
