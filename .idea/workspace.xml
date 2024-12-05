@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e565af1-a2c7-45a6-a077-91cd3c08fba3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/(autenticado)/pacientes/(tabs)/financeiro/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(autenticado)/pacientes/(tabs)/financeiro/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(autenticado)/pacientes/(tabs)/perfil/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(autenticado)/pacientes/(tabs)/perfil/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/colors.ts" afterDir="false" />
-    </list>
+    <list default="true" id="6e565af1-a2c7-45a6-a077-91cd3c08fba3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2dNPNWwVkBgTMbC8r1Dd4peXdty" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,7 +21,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
