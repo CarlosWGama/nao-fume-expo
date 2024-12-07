@@ -16,46 +16,49 @@ export default function Initial (props) {
     // =============================================
     useEffect(() => {      
         (async () => {
+            
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            router.replace('/login')
+
             // =========== PROCURA POR ATUALIZAÇÕES =============== //
-            try {
-                const update = await Updates.checkForUpdateAsync();
+            // try {
+            //     const update = await Updates.checkForUpdateAsync();
           
-                if (update.isAvailable) {
-                  await Updates.fetchUpdateAsync();
-                  await Updates.reloadAsync();
-                } else {
-                  // =========== AGUARDA O MENU =============== //
-                  await new Promise(resolve => setTimeout(resolve, 3000));
-                }
-              } catch (error) {
-                alert(`Erro no update: ${error}`);
-              }
+            //     if (update.isAvailable) {
+            //       await Updates.fetchUpdateAsync();
+            //       await Updates.reloadAsync();
+            //     } else {
+            //       // =========== AGUARDA O MENU =============== //
+            //       await new Promise(resolve => setTimeout(resolve, 3000));
+            //     }
+            //   } catch (error) {
+            //     alert(`Erro no update: ${error}`);
+            //   }
 
 
 
             // =========== DIRECIONA O USUÁRIO =============== //
-            auth().onAuthStateChanged(async (user) => {
-                if (!user) 
-                    router.replace('/login')
-                else {
-                    const { logado, paciente, nivel } = await usuarioSrv.buscarUsuarioLogado();
+            // auth().onAuthStateChanged(async (user) => {
+            //     if (!user) 
+            //     else {
+            //         const { logado, paciente, nivel } = await usuarioSrv.buscarUsuarioLogado();
 
-                    //Falha login
-                    if (!logado) {
-                        router.replace('/login')
-                    }
+            //         //Falha login
+            //         if (!logado) {
+            //             router.replace('/login')
+            //         }
               
-                    //Logado como Coordenador
-                    if (nivel == 'coordenador') router.replace('/coordenador/pacientes')
-                    else {
-                      setUsuario(paciente)
-                      if (paciente?.primeiroAcesso)
-                          router.replace('/pacientes/questionarios/primeiro-acesso')
-                      else
-                          router.replace('/pacientes/questionarios/diario')
-                    } 
-                }
-            })
+            //         //Logado como Coordenador
+            //         if (nivel == 'coordenador') router.replace('/coordenador/pacientes')
+            //         else {
+            //           setUsuario(paciente)
+            //           if (paciente?.primeiroAcesso)
+            //               router.replace('/pacientes/questionarios/primeiro-acesso')
+            //           else
+            //               router.replace('/pacientes/questionarios/diario')
+            //         } 
+            //     }
+            // })
         })()
     }, []);
 

@@ -36,6 +36,7 @@ const UsuariosService = {
             }
             
         } catch (e) {
+            console.log(e)
             console.log('Erro login')
         }
 
