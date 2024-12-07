@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "seli-expo",
+    "name": "Sessão NãoFume PRO",
     "slug": "seli-expo",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "orientation": "portrait",
     "scheme": "nao-fume",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "4"
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,8 +26,8 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "br.com.carloswgama.naofume",
-      "buildNumber": 4
+      "package": "br.com.carloswgama.naofumepro",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png",

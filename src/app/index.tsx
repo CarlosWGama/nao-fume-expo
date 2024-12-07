@@ -17,20 +17,21 @@ export default function Initial (props) {
     useEffect(() => {      
         (async () => {
             // =========== PROCURA POR ATUALIZAÇÕES =============== //
-            try {
-                const update = await Updates.checkForUpdateAsync();
+            // try {
+            //     const update = await Updates.checkForUpdateAsync();
           
-                if (update.isAvailable) {
-                  await Updates.fetchUpdateAsync();
-                  await Updates.reloadAsync();
-                } else {
-                  // =========== AGUARDA O MENU =============== //
-                  await new Promise(resolve => setTimeout(resolve, 3000));
-                }
-              } catch (error) {
-                alert(`Erro no update: ${error}`);
-              }
-
+            //     if (update.isAvailable) {
+            //       await Updates.fetchUpdateAsync();
+            //       await Updates.reloadAsync();
+            //     } else {
+                
+            //     }
+            // } catch (error) {
+                //     alert(`Erro no update: ${error}`);
+                // }
+            
+            // =========== AGUARDA O MENU =============== //
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
 
             // =========== DIRECIONA O USUÁRIO =============== //
