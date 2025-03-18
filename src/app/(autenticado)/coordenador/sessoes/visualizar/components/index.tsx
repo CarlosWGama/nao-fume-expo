@@ -1,1 +1,0 @@
-export { default as AppTemplateSessao } from './template'
