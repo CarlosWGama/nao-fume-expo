@@ -50,6 +50,7 @@ export default function LoginScreen (props) {
             <ScrollView automaticallyAdjustKeyboardInsets={true} style={{flex: 1}} contentContainerStyle={styles.container}>
               {/* LOGO */}
               <Image source={require('./../../assets/imgs/logo.png')} style={styles.logo}/>
+              <Text style={[styles.text, {fontSize: 40, textAlign: 'center', fontWeight: 'bold', color: 'white'}]}>Sessão NãoFume {"\n"} PRO</Text>
 
               {/* FORM */}
               <Formik
